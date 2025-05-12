@@ -1,0 +1,64 @@
+body{
+    background-color: lightgrey;
+    color: white;
+}
+
+.wrapper{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.wrapper div{
+    background-color: rgb(37, 36, 36);
+}
+
+.menu{
+    text-align: center;
+}
+
+
+h1{
+    margin: 0px;
+}
+
+.lang_selector{
+    
+    margin-top: 10px;
+}
+
+.lang_selector ul li{
+    list-style: none;
+}
+
+.lang_selector ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+
+.lang_selector ul{
+    background-color: rgba(0,0,0, 0.3);
+    border: 2px solid black;
+    width: 100px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.lang_selector li{
+    
+    display: none; 
+    padding-left: 5px;
+    align-content: center;
+    border: 2px solid black;
+}
+
+.lang_selector li:hover{
+    background-color: rgba(4,4,4, 0.3);
+    color:white;
+}
+
+.lang_selector ul:hover > li{
+    display: block;
+}

@@ -19,6 +19,7 @@ services:
       MYSQL_PASSWORD: password
     volumes:
       - db_data:/var/lib/mysql
+      - ./mariadb/insert_users.sql:/docker-entrypoint-initdb.d/insert_users.sql
     ports:
       - "3306:3306"
     networks:
@@ -35,7 +36,6 @@ services:
       - php
     networks:
       - redproyecto
-
 volumes:
   db_data: 
     driver: local
