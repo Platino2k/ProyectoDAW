@@ -1,6 +1,14 @@
 <?php
 
+
 $db = DBCON();
+
+//Cerrar Sesion
+if (isset($_POST['logout']) || isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: admin.php");
+    exit;
+}
 
  if(!empty($_POST['formdata'])){
 
@@ -18,12 +26,14 @@ $db = DBCON();
     $check=CHECKUSER($db);
 }
 
-//Cerrar Sesion
-if (isset($_POST['logout'])) {
-    session_destroy();
-    header("Location: admin.php");
-    exit;
+if ($check == true){
+
+    if(isset($_POST['createWorld_form'])){
+        CREATEWORLD($db);
+    }
+
 }
+
 
 function DBCON(){
 
@@ -48,12 +58,12 @@ function LOGIN($db){
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
-    $sql = "SELECT USER_NAME FROM USERS WHERE USER_NAME = '".$name."' AND USER_PASSWORD = '".$pass."';";
+    $sql = "SELECT USER_NAME,USER_PASSWORD FROM USERS WHERE USER_NAME = '".$name."' AND USER_PASSWORD = '".$pass."';";
     $result=$db->query($sql);
 
     $result=$result->fetch(PDO::FETCH_ASSOC);
 
-    if (!empty($result["USER_NAME"]) == $name){
+    if (!empty($result["USER_NAME"]) && $result["USER_NAME"] == $name && $result["USER_PASSWORD"] == $pass) {
 
         $_SESSION["USER"] = $_POST["username"];
         $_SESSION["PASS"] = $_POST["password"];
@@ -65,16 +75,18 @@ function LOGIN($db){
 
 function CHECKUSER($db){
 
+    // Esta funcion es para incrementar la seguridad
+    // Comprueblo que lo que hay en las variables $SESSION USER y PASS sea correcto
     if (!empty($_SESSION["USER"]) && !empty($_SESSION["PASS"])){
         $sql = "USE USERS_DB;";
         $db->query($sql);
 
-        $sql = "SELECT USER_NAME FROM USERS WHERE USER_NAME = '".$_SESSION["USER"]."' AND USER_PASSWORD = '".$_SESSION["PASS"]."';";
+        $sql = "SELECT USER_NAME,USER_PASSWORD FROM USERS WHERE USER_NAME = '".$_SESSION["USER"]."' AND USER_PASSWORD = '".$_SESSION["PASS"]."';";
         $result=$db->query($sql);
 
         $result=$result->fetch(PDO::FETCH_ASSOC);
 
-        if (!empty($result["USER_NAME"])){
+        if (!empty($result["USER_NAME"]) && $result["USER_NAME"] == $_SESSION["USER"] && $result["USER_PASSWORD"] == $_SESSION["PASS"]){
             return true;
         } else {
             return false;
@@ -93,6 +105,7 @@ function CREATEWORLD($db){
     // En caso de no existir ningun mundo genera "mundo1"
     // En caso de que existan mundos les suma 1 ej: "mundo2", "mundo3",...
 
+    
 
     // Selecciono todos las DB que se llamen mundo% y recoge el ultimo y lo guarda en $name
     $sql = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME LIKE 'mundo%' ORDER BY SCHEMA_NAME DESC LIMIT 1";
@@ -106,14 +119,46 @@ function CREATEWORLD($db){
         $txt = "MUNDO";
         $txt .= $num;
         $db->query("CREATE DATABASE `".$txt."`;");
+
+        
+    
     } else { // Genera el primer mundo
         
-        $db->query("CREATE DATABASE MUNDO1");
+        $txt = "MUNDO1";
+        $db->query("CREATE DATABASE `".$txt."`;");
     }
 
-    $db = null; // Cierro la conexion con la base de datos
 
+    //Guardo las variables del formulario
+    $worldname = $_POST["world_name"];
+    $mapsize = $_POST["map_size"];
+    $playerqty = $_POST["player_qty"];
+
+    $db->query("use USERS_DB;");
+    $db->query("INSERT INTO WORLDSTATUS VALUES ('$worldname', '$txt', 'RUNNING', '$mapsize', '$playerqty');");
+
+
+    $db = null; // Cierro la conexion con la base de datos
 }
 
+function WORLDLIST($db){
+
+    // Entro en USERS_DB
+    $sql = "USE USERS_DB;";
+    $db->query($sql);
+
+    $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS;";
+    $result=$db->query($sql);
+    $WORLD = $result->fetchALL();
+   
+    foreach ($WORLD as $DATA){
+        echo "<tr>
+            <td>$DATA[WORLD_NAME]</td>
+            <td>$DATA[WORLD_ID]</td>
+            <td>$DATA[WORLD_STATUS]</td>
+            </tr>";
+    }
+    return true;
+}
 
 ?>

@@ -20,6 +20,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./mariadb/insert_users.sql:/docker-entrypoint-initdb.d/insert_users.sql
+      - ./mariadb/BDPRUEBA.sql:/docker-entrypoint-initdb.d/BDPRUEBA.sql
     ports:
       - "3306:3306"
     networks:

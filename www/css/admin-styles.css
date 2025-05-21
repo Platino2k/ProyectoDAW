@@ -1,0 +1,263 @@
+body{
+    background-color: #0097A7;
+    color: white;
+    display: flex;
+    
+    margin: 0;
+    padding: 0;
+}
+
+/*  Login  */
+
+.login{
+    text-align: center;
+    justify-content: center;
+    margin-inline: auto;
+    margin-top: 20vh;
+}
+
+.login .form{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid white;
+}
+
+.login .formbutton{
+    color: white;
+    border-color: white;
+    background-color: #0097A7;
+    margin-top: 4vh;
+    width: 100%;
+    box-shadow: 1px 1px 2px white;
+}
+
+.login .formbutton:active{
+    position: relative;
+    top: 2px;
+    left: 2px;
+    box-shadow: 0px 0px 1px white;
+}
+
+.login input{
+    color: white;
+    position: relative;
+    bottom: 5px;
+    border: none;
+    background-color: #0097A7;
+}
+
+
+.login input::placeholder {
+  color: white;
+}
+
+.login input:focus {
+    outline: none;
+}
+
+.login .separator {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+
+
+/* Estructura wrapper */
+.wrapper{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.wrapper div{
+    background-color: rgb(37, 36, 36);
+}
+
+/* Estructura Selector idiomas */
+.lang_selector{
+    
+    margin-top: 10px;
+}
+
+.lang_selector ul li{
+    list-style: none;
+}
+
+.lang_selector ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+
+.lang_selector ul{
+    background-color: #0097A7;
+    border: 2px solid white;
+    width: 100px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.lang_selector li{
+    
+    display: none; 
+    padding-left: 5px;
+    align-content: center;
+    border-top: 2px solid white;
+}
+
+.lang_selector li:hover{
+    background-color: rgba(4,4,4, 0.3);
+    color:white;
+}
+
+.lang_selector ul:hover > li{
+    display: block;
+}
+
+/* Barra Izquierda */
+.sidebar{
+    width: 23vw;
+    height: 100vh;
+    background-color: #0097A7;
+}
+
+.sidebar h1{
+    text-align: center;
+}
+
+.sidebar .separator{
+    margin-top: 50vh;
+}
+
+.sidebar .footer{
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+}
+
+.sidebar .footer #config{
+    position: relative;
+    width: 2vw;
+    height: 2vw;
+    margin-top: 3.5vh;
+    transition: transform 0.3s ease, z-index 0s;
+}
+
+.sidebar .footer #config:hover{
+    
+    transform: scale(1.3);
+    z-index: 1;
+}
+
+.sidebar .button-list{
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .button-list button{
+    
+    position: relative;
+    margin: auto;
+    margin-top: 3vh;
+    width: 18vw;
+    height: 5vh;
+
+    
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #FFFFFF;
+
+    border: 3px solid black;
+    box-shadow: 2px 2px 3px black;
+}
+
+.sidebar .button-list button:hover{
+    background-color: #CFD8DC;
+}
+
+.sidebar .button-list button:active{
+    top: 2px;
+    left: 2px;
+    box-shadow: 1px 1px 2px black;
+}
+
+/* MAIN */
+
+.main{
+    background-color: #E0F7FA;
+    width: 77vw;
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
+    
+}
+
+.main h1{
+    margin-top: 30vh;
+    color: #0097A7;
+}
+
+/* PANEL */
+
+.main div .panelTop{
+    text-align: center;
+}
+
+.main div .panelMain{
+    display: block;
+    text-align: center;
+    font-size: 26px;
+}
+
+.main div .panelMain #name{
+    width: 200px;
+}
+
+.main div .panelMain #playerqty{
+    width: 125px;
+}
+
+.main div .panelMain #mapsize{
+    width: 125px;
+}
+
+
+.main div .panelMain #submit{
+    margin-top: 3vh;
+    width: 200px;
+    height: 40px;
+    
+    font-weight: bold;
+
+    border: 2px solid black;
+    background-color: white;
+    box-shadow: 2px 2px 3px black;
+}
+
+.main div .panelMain #submit:hover{
+    background-color: #CFD8DC;
+}
+
+.main div .panelMain #submit:active{
+    position: relative;
+    top: 2px;
+    left: 2px;
+    box-shadow: 1px 1px 2px black;
+}
+
+
+/* TABLE USUARIOS Y MUNDOS */
+
+.MAINTABLE{
+    display: flex;
+    justify-content: center;
+}
+
+.MAINTABLE td{
+    width: 15vw;
+    border-collapse: collapse;
+    border: 2px solid black;
+}
