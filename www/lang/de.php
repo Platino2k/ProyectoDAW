@@ -22,13 +22,30 @@
         "createworld_4" => "Maximale Spielerzahl",
         "createworld_5" => "Kartengröße",
         
+        // Panel listado de Mundos
+
         "worldlist_1" => "Weltliste",
         "worldlist_2" => "Keine Welt",
         "worldlist_3" => "Name",
         "worldlist_4" => "ID",
         "worldlist_5" => "Status",
 
+        // Panel listado de Jugadores
+
         "playerlist_1" => "Spielerliste",
+        "playerlist_2" => "Ohne Spieler",
+        "playerlist_3" => "ID",
+        "playerlist_4" => "Name",
+        "playerlist_5" => "E-Mail",
+        "playerlist_6" => "Geburtsdatum",
+        "playerlist_7" => "MOD",
+
+         // Index.php
+
+        // Registro
+
+        "register_1" => "Registrieren",
+
     );
 
 ?>

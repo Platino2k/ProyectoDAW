@@ -3,7 +3,7 @@
     session_start();
 
     include "config.php";
-    include "adminfunctions.php";
+    include "functions/adminfunctions.php";
     
 ?>
 
@@ -143,7 +143,28 @@ if(isset($check) && $check == true){
                     <p>';echo $lang["playerlist_1"];echo '</p>
                     <hr>
                     </div>
-                    
+                    <div class="panelMain"> 
+                    ';
+
+
+                    // Creo Cabecera de la tabla
+                     echo "<table class='MAINTABLE' style='border-collapse: collapse;'>";
+                            echo "<tr>
+                                <td>";echo $lang['playerlist_3']; echo "</td>
+                                <td>";echo $lang['playerlist_4']; echo "</td>
+                                <td>";echo $lang['playerlist_5']; echo "</td>
+                                <td>";echo $lang['playerlist_6']; echo "</td>
+                                <td>";echo $lang['playerlist_7']; echo "</td>
+                            </tr>";
+                    $WORLDLIST = PLAYERLIST($db);
+                    if (empty($WORLDLIST)){
+                        echo "<tr><td>";
+                        echo $lang["worldlist_2"];
+                        echo "</td></tr>";
+                    }
+                        echo "</table>";
+                
+                    echo '</div>
                     `;
 
 
@@ -179,7 +200,7 @@ if(isset($check) && $check == true){
                     <hr>
 
                     <div class="panelMain">
-                        <form method="post">
+                        <form method="post" action="admin.php">
 
                             <label>';echo $lang["createworld_2"];echo '</label><br>
                             <input type="text" id="name" name="world_name" placeholder="';echo $lang["createworld_3"];echo '"><br>

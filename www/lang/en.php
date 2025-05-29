@@ -22,6 +22,7 @@
         "createworld_4" => "Max-Players",
         "createworld_5" => "Map Size",
 
+        // Panel listado de Mundos
 
         "worldlist_1" => "World List",
         "worldlist_2" => "No Worlds",
@@ -29,7 +30,21 @@
         "worldlist_4" => "ID",
         "worldlist_5" => "Status",
 
+        // Panel listado de Jugadores
+
         "playerlist_1" => "Player List",
+        "playerlist_2" => "Player list its empty",
+        "playerlist_3" => "ID",
+        "playerlist_4" => "Name",
+        "playerlist_5" => "E-Mail",
+        "playerlist_6" => "Birthdate",
+        "playerlist_7" => "MOD",
+
+        // Index.php
+
+        // Registro
+
+        "register_1" => "Register",
 
     );
 
