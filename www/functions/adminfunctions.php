@@ -109,7 +109,7 @@ function CREATEWORLD($db){
     $_GET['delWorld'] = "0";
 
     // Selecciono todos las DB que se llamen mundo% y recoge el ultimo y lo guarda en $name
-    $sql = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME LIKE 'mundo%' ORDER BY SCHEMA_NAME DESC LIMIT 1";
+    $sql = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME LIKE 'mundo%' ORDER BY CAST(SUBSTRING(SCHEMA_NAME, 6) AS UNSIGNED) DESC LIMIT 1;";
 
     $result = $db->query($sql);
     $name = $result->fetchALL();

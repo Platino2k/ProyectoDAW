@@ -45,6 +45,18 @@
         // Registro
 
         "register_1" => "Registro",
+
+        // Main.php
+
+        // Bienvenida
+
+        "welcome_1" => "Bienvenido/a",
+
+        //Selector Mundo
+
+        "worldselector_1" => "Elegir Mundo",
+        "worldselector_2" => "Jugadores",
+        "worldselector_3" => "Empezar",
  
     );
 

@@ -46,6 +46,18 @@
 
         "register_1" => "Register",
 
+        // Main.php
+
+        // Bienvenida
+
+        "welcome_1" => "Welcome",
+
+        //Selector Mundo
+
+        "worldselector_1" => "Choose World",
+        "worldselector_2" => "Players",
+        "worldselector_3" => "Start",
+
     );
 
 ?>

@@ -12,8 +12,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Etravia</title>
     <link href="css/admin-styles.css" rel="stylesheet">
+    <link rel="icon" href="assets/icon/icon.png">
 </head>
 <body>
 
@@ -26,7 +27,7 @@ if(isset($check) && $check == true){
 
         echo '
         <div class="sidebar">
-            <h1>Proyecto Daw</h1>
+            <h1>Etravia</h1>
 
             <hr>
             <div class="button-list">
@@ -56,7 +57,7 @@ if(isset($check) && $check == true){
 
         <div class="main">
 
-            <h1 id="main-text">PROYECTO DAW</h1>
+            <h1 id="main-text">Etravia</h1>
             
         </div>
 
@@ -231,7 +232,7 @@ if(isset($check) && $check == true){
         
         <div class="login">
             
-            <h1>PROYECTO DAW</h1>
+            <h1>Etravia</h1>
 
                 <h3>';echo $lang["login_1"]; echo '</h3>
 
@@ -252,9 +253,9 @@ if(isset($check) && $check == true){
 
                     <ul>';echo $lang["language"];echo '
 
-                        <li><a href="admin.php?lang=es"><img src="assets/icon/es_flag.png" width=20px heigth=20px> Spanish</a></li>
+                        <li><a href="admin.php?lang=es"><img src="assets/icon/es_flag.png" width=20px heigth=20px> Español</a></li>
                         <li><a href="admin.php?lang=en"><img src="assets/icon/en_flag.png" width=20px heigth=20px> English</a></li>
-                        <li><a href="admin.php?lang=de"><img src="assets/icon/de_flag.png" width=20px heigth=20px> German</a></li>
+                        <li><a href="admin.php?lang=de"><img src="assets/icon/de_flag.png" width=20px heigth=20px> Deutsch</a></li>
 
                     </ul>
 

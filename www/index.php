@@ -10,8 +10,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Etravia</title>
     <link href="css/index-styles.css" rel="stylesheet">
+    
+    <link rel="icon" href="assets/icon/icon.png">
 </head>
 <body>
     
@@ -73,7 +75,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 ProyectoDaw</p>
+        <p>&copy; 2025 Etravia</p>
     </footer>
     <script src="script/index-script.js"></script>
 </body>
