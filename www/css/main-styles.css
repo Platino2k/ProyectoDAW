@@ -104,22 +104,26 @@ footer {
 
 }
 
-.worldBox button{
+.worldBox a{
     height: 3vh;
     width: 5vw;
     margin: auto;
+    text-align: center;
+    align-content: center;
+    text-decoration: none;
+    color: black;
 
     border-radius: 12px;
-    background-color: red;
+    background-color: rgba(140, 210, 146, 0.8);
 
     box-shadow: 2px 2px 3px black;
 }
 
-.worldBox button:hover{
-    background-color: rgb(170, 0, 0);
+.worldBox a:hover{
+    background-color: rgb(122, 236, 132);
 }
 
-.worldBox button:active{
+.worldBox a:active{
     position: relative;
     box-shadow: 1px 1px 2px black;
     top: 1px;

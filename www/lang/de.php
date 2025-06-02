@@ -14,6 +14,11 @@
 
         // Panel de Control "admin.php"
 
+        // Mensaje Error
+
+        "error_1" => "Der Benutzer existiert nicht",
+        "error_2" => "Falsches Passwort",
+
         // Panel Crear Mundo
         
         "createworld_1" => "Welt Erschaffen",

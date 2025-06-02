@@ -14,6 +14,11 @@
 
         // Panel de Control "admin.php"
 
+        // Mensaje Error
+
+        "error_1" => "Usuario no existe",
+        "error_2" => "Contraseña Erronea",
+
         // Panel Crear Mundo
 
         "createworld_1" => "Crear Mundo",

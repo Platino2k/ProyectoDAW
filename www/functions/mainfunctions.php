@@ -8,7 +8,6 @@ if (isset($_POST['logout']) || isset($_GET['logout'])) {
 }
 
 $db = DBCON();
-CHECKUSER($db);
 
 function DBCON(){
 
@@ -77,7 +76,7 @@ function showWorlds($db,$lang){
                         <h3>$DATA[WORLD_NAME]</h3>
                         <h4>".$lang['worldselector_2'].": CANTIDAD</h4>
                     </div>
-                    <button>".$lang['worldselector_3']."</button>
+                    <a href='world-pages/world.php?world=$DATA[WORLD_ID]'>".$lang['worldselector_3']."</a>
                     
                 </div>";
                 

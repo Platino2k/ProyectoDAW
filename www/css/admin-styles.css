@@ -261,3 +261,18 @@ body{
     border-collapse: collapse;
     border: 2px solid black;
 }
+
+/* MENSAJE ERROR */
+
+.error{
+    position: absolute;
+    text-align: center;
+    align-content: center;
+
+    top: 30vh;
+    left: 30vw;
+
+    border: 2px solid black;
+    height: 5vw;
+    width: 12vw;
+}

@@ -15,7 +15,7 @@ if (isset($_POST['logout']) || isset($_GET['logout'])) {
 
     //Iniciar Sesion
     if ($_POST['formdata'] == "LOGIN"){        
-            LOGIN($db);
+            LOGIN($db,$lang);
             $check=CHECKUSER($db);
     }
 
@@ -50,7 +50,7 @@ function DBCON(){
 
 }
 
-function LOGIN($db){
+function LOGIN($db,$lang){
 
     $name = $_POST["username"];
     $pass = $_POST["password"];
@@ -58,10 +58,24 @@ function LOGIN($db){
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
-    $sql = "SELECT USER_NAME,USER_PASSWORD FROM USERS WHERE USER_NAME = '".$name."' AND USER_PASSWORD = '".$pass."';";
+    $sql = "SELECT USER_NAME,USER_PASSWORD FROM USERS WHERE USER_NAME = '".$name."' AND USER_PASSWORD = '".$pass."' AND MODERATOR = 1;";
     $result=$db->query($sql);
 
     $result=$result->fetch(PDO::FETCH_ASSOC);
+
+    //Da mensaje de error por usuario inexistente o contraseña
+    if(empty($result)){
+        $sql = "SELECT USER_NAME,USER_PASSWORD FROM USERS WHERE USER_NAME = '".$name."' AND MODERATOR = 1;";
+        $result2=$db->query($sql);
+        $result2=$result2->fetch(PDO::FETCH_ASSOC);
+
+        if(empty($result2)){
+            echo "<div class='error'>".$lang["error_1"]."</div>";
+        } else {
+            echo "<div class='error'>".$lang["error_2"]."</div>";
+        }
+
+    }
 
     if (!empty($result["USER_NAME"]) && $result["USER_NAME"] == $name && $result["USER_PASSWORD"] == $pass) {
 
@@ -128,6 +142,74 @@ function CREATEWORLD($db){
         $txt = "MUNDO1";
         $db->query("CREATE DATABASE `".$txt."`;");
     }
+
+    $db->query("USE ".$txt.";");
+
+    // Se crean las tablas de la Base de datos
+    $db->query("
+        CREATE TABLE IF NOT EXISTS PLAYERS(
+            PLAYER_ID INT NOT NULL AUTO_INCREMENT,
+            PLAYER_NAME VARCHAR(14) NOT NULL UNIQUE,
+            USER_ID INT NOT NULL,
+            CONSTRAINT PLAYERS_PK PRIMARY KEY (PLAYER_ID,USER_ID)
+        );
+
+        CREATE TABLE IF NOT EXISTS TOWN(
+            TOWN_ID INT NOT NULL,
+            PLAYER_ID INT NOT NULL,
+            WOOD INT NOT NULL,
+            FOOD INT NOT NULL,
+            STONE INT NOT NULL,
+            IRON INT NOT NULL,
+            CONSTRAINT TOWN_PK PRIMARY KEY (TOWN_ID)
+        );
+
+        CREATE TABLE IF NOT EXISTS TOWN_BUILDINGS(
+            TOWN_ID INT NOT NULL,
+            BUILDING VARCHAR(50) NOT NULL,
+            BUILDING_LEVEL INT NOT NULL,
+            FOREIGN KEY (TOWN_ID) REFERENCES TOWN(TOWN_ID)
+        );
+
+        CREATE TABLE IF NOT EXISTS MAP(
+            SQUARE_ID INT NOT NULL,
+            POS_X INT NOT NULL,
+            POS_Y INT NOT NULL,
+            PLAYER_ID INT,
+            TOWN_ID INT,
+            CONSTRAINT MAP_PK PRIMARY KEY (SQUARE_ID),
+            FOREIGN KEY (TOWN_ID) REFERENCES TOWN(TOWN_ID),
+            FOREIGN KEY (PLAYER_ID) REFERENCES PLAYERS(PLAYER_ID)
+        );
+
+        CREATE TABLE IF NOT EXISTS ARMY(
+            PLAYER_ID INT NOT NULL,
+            ARMY_ID INT AUTO_INCREMENT,
+            POSITION INT NOT NULL,
+            SWORDMAN INT NOT NULL,
+            PIKEMAN INT NOT NULL,
+            ARCHER INT NOT NULL,
+            L_CAVALRY INT NOT NULL,
+            H_CAVALRY INT NOT NULL,
+            CONSTRAINT ARMY_ID PRIMARY KEY (ARMY_ID),
+            FOREIGN KEY (PLAYER_ID) REFERENCES PLAYERS(PLAYER_ID)
+        );
+
+        CREATE TABLE IF NOT EXISTS LETTER(
+            SENDER_ID INT NOT NULL,
+            RECEIVER_ID INT NOT NULL,
+            CONTENT VARCHAR (1000),
+            FOREIGN KEY (SENDER_ID) REFERENCES PLAYERS(PLAYER_ID),
+            FOREIGN KEY (RECEIVER_ID) REFERENCES PLAYERS(PLAYER_ID)
+        );
+
+        CREATE TABLE IF NOT EXISTS BATTLE_LOG(
+            ATT_ID INT NOT NULL,
+            DEF_ID INT NOT NULL,
+            FOREIGN KEY (ATT_ID) REFERENCES PLAYERS(PLAYER_ID),
+            FOREIGN KEY (DEF_ID) REFERENCES PLAYERS(PLAYER_ID)
+        );
+    ");
 
 
     //Guardo las variables del formulario
