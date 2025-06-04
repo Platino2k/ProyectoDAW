@@ -1,27 +1,28 @@
 <?php
 // Parametros de edificios y tropas
 $building =[
+    // EL PRIMER CAMPO ES EL NIVEL DEL EDIFICIO
     // Campo
     // Produccion por minuto
-    "food_1" => [1],
-    "food_2" => [2],
-    "food_3" => [3],
-    "food_4" => [4],
+    "food_1" => [1,1],
+    "food_2" => [2,2],
+    "food_3" => [3,3],
+    "food_4" => [3,4],
 
-    "wood_1" => [1],
-    "wood_2" => [2],
-    "wood_3" => [3],
-    "wood_4" => [4],
+    "wood_1" => [1,1],
+    "wood_2" => [2,2],
+    "wood_3" => [3,3],
+    "wood_4" => [4,4],
 
-    "stone_1" => [1],
-    "stone_2" => [2],
-    "stone_3" => [3],
-    "stone_4" => [4],
+    "stone_1" => [1,1],
+    "stone_2" => [2,2],
+    "stone_3" => [3,3],
+    "stone_4" => [4,4],
 
-    "iron_1" => [1],
-    "iron_2" => [2],
-    "iron_3" => [3],
-    "iron_4" => [4],
+    "iron_1" => [1,1],
+    "iron_2" => [2,2],
+    "iron_3" => [3,3],
+    "iron_4" => [4,4],
 
     // Ciudad
 
@@ -30,17 +31,17 @@ $building =[
     "townhall_2" => [2],
 
     // Capacidad Máxima
-    "storehouse_1" => [500,500,500,500],
-    "storehouse_2" => [1000,1000,1000,1000],
-    "storehouse_3" => [1500,1500,1500,1500],
+    "storehouse_1" => [1,500,500,500,500],
+    "storehouse_2" => [2,1000,1000,1000,1000],
+    "storehouse_3" => [3,1500,1500,1500,1500],
 
     // Tropas por nivel
-    "barracks_1" => ["SWORDMAN"],
-    "barracks_2" => ["SWORDMAN","PIKEMAN"],
-    "barracks_3" => ["SWORDMAN","PIKEMAN","ARCHER"],
+    "barracks_1" => [1,"SWORDMAN"],
+    "barracks_2" => [2,"SWORDMAN","PIKEMAN"],
+    "barracks_3" => [3,"SWORDMAN","PIKEMAN","ARCHER"],
 
-    "stable_1" => ["L_CAVALRY"],
-    "stable_2" => ["L_CAVALRY","H_CAVALRY"],
+    "stable_1" => [1,"L_CAVALRY"],
+    "stable_2" => [2,"L_CAVALRY","H_CAVALRY"],
 ];
 
 $armyPOWER = [

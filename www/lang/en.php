@@ -63,6 +63,15 @@
         "worldselector_2" => "Players",
         "worldselector_3" => "Start",
 
+        // World.php
+
+        // Barra iqz
+
+        "worldnavbar_1" => "Resources",
+        "worldnavbar_2" => "City",
+        "worldnavbar_3" => "Map",
+        "worldnavbar_4" => "Message",
+        "worldnavbar_5" => "Report",
     );
 
 ?>
