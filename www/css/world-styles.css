@@ -69,17 +69,17 @@ footer {
     height: 60vh;
     left: 37vw;
     top: 23vh;
+    flex-wrap: wrap;
 }
 
 .window div{
+    margin: auto;
     border: 5px solid black;
+    width: 40%;
+    
 }
 
-#resourcesCITY{
-    position: absolute;
-}
-
-#cityCITY{
+.window{
     position: absolute;
 }
 
@@ -96,3 +96,15 @@ footer {
     margin-bottom: 10px;
 }
 
+/* RECURSOS MEJORA */
+
+.window div ul{
+    display: flex;
+    gap: 1vw;
+    list-style-type: none;
+}
+
+.window div ul li img{
+    width: 25px;
+    height: 25px;
+}

@@ -72,6 +72,34 @@
         "worldnavbar_3" => "Karte",
         "worldnavbar_4" => "Nachricht",
         "worldnavbar_5" => "Bericht",
+        "worldnavbar_6" => "Kaserne",
+        "worldnavbar_7" => "Scheune",
+
+       // Recursos
+
+        "resources_1" => "Weizenfeld",
+        "resources_2" => "Sägewerk",
+        "resources_3" => "Steinbruch",
+        "resources_4" => "Bergwerk",
+
+        // Ciudad
+
+        "city_1" => "Rathaus",
+        "city_2" => "Speichern",
+        "city_3" => "Kaserne",
+        "city_4" => "Scheune",
+
+        // Cuartel
+
+        "barrack_1" => "Schwertkämpfer",
+        "barrack_2" => "Pikenier",
+        "barrack_3" => "Bogenschütze",
+
+         // Establo
+
+        "stable_1" => "Leichte Kavallerie",
+        "stable_2" => "Schwere Cavalry",
+
 
     );
 

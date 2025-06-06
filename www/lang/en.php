@@ -72,6 +72,33 @@
         "worldnavbar_3" => "Map",
         "worldnavbar_4" => "Message",
         "worldnavbar_5" => "Report",
+        "worldnavbar_6" => "Barrack",
+        "worldnavbar_7" => "Stable",
+
+        // Recursos
+
+        "resources_1" => "Wheat Field",
+        "resources_2" => "Sawmill",
+        "resources_3" => "Quarry",
+        "resources_4" => "Mine",
+
+        // Ciudad
+
+        "city_1" => "Townhall",
+        "city_2" => "Storehouse",
+        "city_3" => "Barracks",
+        "city_4" => "Stable",
+
+        // Cuartel
+
+        "barrack_1" => "Swordman",
+        "barrack_2" => "Pikeman",
+        "barrack_3" => "Archer",
+
+        // Establo
+
+        "stable_1" => "Light Cavalry",
+        "stable_2" => "Heavy Cavalry",
     );
 
 ?>

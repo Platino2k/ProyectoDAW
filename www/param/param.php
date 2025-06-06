@@ -56,7 +56,7 @@ $armyPOWER = [
 ];
 
 $armyCOST = [
-    // Comida - Madera - Piedra - Hierro - Reclutar (en Minutos)
+    // Madera - Comida - Piedra - Hierro - Reclutar (en Minutos)
     //Cuartel
     "SWORDMAN" => [25,10,0,25,1],
     "PIKEMAN" => [40,20,0,40,2],

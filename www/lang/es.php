@@ -72,6 +72,34 @@
         "worldnavbar_3" => "Mapa",
         "worldnavbar_4" => "Mensajes",
         "worldnavbar_5" => "Informes",
+        "worldnavbar_6" => "Cuartel",
+        "worldnavbar_7" => "Establo",
+
+        // Recursos
+
+        "resources_1" => "Campo de Trigo",
+        "resources_2" => "Aserradero",
+        "resources_3" => "Cantera",
+        "resources_4" => "Mina",
+
+        // Ciudad
+
+        "city_1" => "Ayuntamiento",
+        "city_2" => "Almacén",
+        "city_3" => "Cuartel",
+        "city_4" => "Establo",
+
+        // Cuartel
+
+        "barrack_1" => "Espadachin",
+        "barrack_2" => "Piquero",
+        "barrack_3" => "Arquero",
+
+         // Establo
+
+        "stable_1" => "Caballería Ligera",
+        "stable_2" => "Caballería Pesada",
+
  
     );
 

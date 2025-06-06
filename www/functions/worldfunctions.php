@@ -14,6 +14,13 @@ $check = CHECKUSER($db);
 if ($check == true){
     ADDPLAYER($db,$WORLD);
 
+    LOADRESOURCES($db,$WORLD,$building);
+
+    if(!empty($_GET['building'])){
+        
+        UPGRADEBUILDING($db,$WORLD,$buildingCOST);
+    }
+
 }
 
 function DBCON(){
@@ -84,13 +91,14 @@ function ADDPLAYER($db,$world){
         $resultCheck=$db->query($sql);
         $resultCheck=$resultCheck->fetch(PDO::FETCH_ASSOC);
         
+       
 
         CREATETOWN($db,$world,$resultCheck["PLAYER_ID"]);
         TOWNBUILDING($db,$world,$resultCheck["PLAYER_ID"],$id);
+ 
     }
 
 }
-
 function CREATETOWN($db,$world,$playerid){
     // CREA UNA CIUDAD
     $sql = "USE ".$world.";";
@@ -169,6 +177,128 @@ function showResources($db,$world){
     return $townid;
 }
 
+function UPGRADEBUILDING($db,$world,$cost){
 
+    $sql = "USE ".$world.";";
+    $db->query($sql);
+
+
+    $sql = "SELECT TOWN.TOWN_ID FROM TOWN JOIN PLAYERS ON TOWN.PLAYER_ID = PLAYERS.PLAYER_ID WHERE PLAYERS.PLAYER_NAME = '".$_SESSION['USER']."' LIMIT 1;";
+    $result=$db->query($sql);
+    $result=$result->fetch(PDO::FETCH_ASSOC);
+    $townid = $result['TOWN_ID'];
+
+    //COGE NOMBRE DEL EDIFICIO Y LE TESTA 1
+        $txt = $_GET['building'];
+        $split = explode('_',$txt);
+        $NEWbuilding = $split[0]."_".($split[1]);
+        $PREbuilding = $split[0]."_".($split[1]-1);
+
+
+         // selecciona los recursos de la ciudad
+    $sql = "SELECT FOOD, WOOD, STONE, IRON FROM TOWN WHERE TOWN_ID = '".$townid."'";
+    $result3=$db->query($sql);
+    $result3=$result3->fetch(PDO::FETCH_ASSOC);
+    //Resta Recursos
+    $sql = "SELECT BUILDING FROM TOWN_BUILDINGS WHERE TOWN_ID = '".$townid."' AND BUILDING = '".$NEWbuilding."'";
+    $result4=$db->query($sql);
+    $result4=$result4->fetch(PDO::FETCH_ASSOC);
+
+        if ($result4['BUILDING'] != $NEWbuilding){
+
+            if ($result3["FOOD"] >= $cost[$NEWbuilding][0] &&
+                $result3["WOOD"] >= $cost[$NEWbuilding][0] &&
+                $result3["STONE"] >= $cost[$NEWbuilding][0] &&
+                $result3["IRON"] >= $cost[$NEWbuilding][0] ){
+
+                    $sql = "UPDATE TOWN SET 
+                    FOOD =  FOOD -".$cost[$NEWbuilding][0].",
+                    WOOD =  WOOD -".$cost[$NEWbuilding][1].",
+                    STONE =  STONE -".$cost[$NEWbuilding][2].",
+                    IRON =  IRON -".$cost[$NEWbuilding][3]."
+                    WHERE TOWN_ID = '".$townid."';";
+                    $db->query($sql);
+
+                    // AUMENTA NIVEL
+                    $sql = "UPDATE TOWN_BUILDINGS
+                    SET BUILDING = '".$_GET['building']."'
+                    WHERE TOWN_ID = '".$townid."' AND BUILDING = '".$PREbuilding."';
+                    ";
+                    
+                    $db->query($sql);
+                }
+        }
+}
+
+
+function LOADRESOURCES($db,$world,$building){
+
+    $sql = "USE ".$world.";";
+    $db->query($sql);
+
+    // Selecciona el id de la ciudad
+    $sql = "SELECT TOWN.TOWN_ID FROM TOWN JOIN PLAYERS ON TOWN.PLAYER_ID = PLAYERS.PLAYER_ID WHERE PLAYERS.PLAYER_NAME = '".$_SESSION['USER']."' LIMIT 1;";
+    $result=$db->query($sql);
+    $result=$result->fetch(PDO::FETCH_ASSOC);
+    $townid = $result['TOWN_ID'];
+
+    $sql = "SELECT LASTCON FROM TOWN_CON WHERE TOWN_ID = '".$townid."';";
+    $result2=$db->query($sql);
+    $result2=$result2->fetch(PDO::FETCH_ASSOC);
+    $date = new DateTimeImmutable();
+
+    if (empty($result2)){
+        // Pongo valores base
+        $sql = "INSERT INTO TOWN_CON (TOWN_ID,LASTCON) VALUES ('".$townid."','".$date."');";
+        $db->query($sql);
+    } else {
+        
+        $lastcon = new DateTimeImmutable($result2['LASTCON']);
+        $mindiff = $lastcon->diff($date);
+
+        $min = ($mindiff->days * 24 * 60) + ($mindiff->h * 60) + $mindiff->i;
+
+        //Guardo nueva ultima conexion
+        // $date es un objeto y hay que pasarlo a string
+        $dateString = $date->format('Y-m-d H:i:s');
+
+        $sql = "UPDATE TOWN_CON SET LASTCON = '".$dateString."' WHERE TOWN_ID = '".$townid."';";
+        $db->query($sql);
+
+        //Se calculan recursos generados
+
+        $sql = "select BUILDING from TOWN_BUILDINGS WHERE TOWN_ID = '".$townid."'";
+        $result3=$db->query($sql);
+        $result3=$result3->fetchALL(PDO::FETCH_ASSOC);
+
+
+        $buildingKEY = array_keys($building); 
+        $buildingVALUE = array_values($building);
+        $counter = 0;
+        for($i=0;$i<count($building);$i++){
+            for($n=0;$n<count($result3);$n++){
+                if($buildingKEY[$i] == $result3[$n]['BUILDING'] && $counter < 4){
+                    $ammount = $buildingVALUE[$i][1] * $min;
+
+                    //COGE NOMBRE DEL EDIFICIO Y LE TESTA 1
+                    $txt = $buildingKEY[$i];
+                    $resource = explode('_',$txt);
+
+                    $sql = "UPDATE TOWN SET ".$resource[0]." = ".$resource[0]." + ".$ammount." WHERE TOWN_ID = '".$townid."';";
+                    $db->query($sql);
+                    echo $sql;
+
+                    $counter++;
+                    
+                }
+            }
+        }
+
+   
+    }
+
+
+
+}
 
 ?>

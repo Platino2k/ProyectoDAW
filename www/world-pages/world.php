@@ -1,7 +1,10 @@
 <?php
     session_start();
+    
+    include "../param/param.php";
     include "world-top.php";
     include "../functions/worldfunctions.php";
+    
 ?>
 
 <?php
@@ -11,11 +14,20 @@
         <div class='leftMenu'>
 
             <ul>
+                <li id='info'>
+                    Info
+                </li>
                 <li id='resources'>
                     ";echo $lang["worldnavbar_1"];echo"
                 </li>
                 <li id='city'>
                     ";echo $lang["worldnavbar_2"];echo"
+                </li>
+                <li id='barrack'>
+                    ";echo $lang["worldnavbar_6"];echo"
+                </li>
+                <li id='stable'>
+                    ";echo $lang["worldnavbar_7"];echo"
                 </li>
                 <li id='map'>
                     ";echo $lang["worldnavbar_3"];echo"
