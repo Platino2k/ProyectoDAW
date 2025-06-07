@@ -26,6 +26,10 @@
 if(isset($check) && $check == true){
 
         echo '
+
+
+
+
         <div class="sidebar">
             <h1>Etravia</h1>
 
@@ -52,7 +56,7 @@ if(isset($check) && $check == true){
             </div>
         </div>
 
-       
+        
 
 
         <div class="main">
@@ -169,6 +173,9 @@ if(isset($check) && $check == true){
                     `;
 
 
+                    
+
+
             })
 
             createworld=document.getElementsByClassName("create-world-button")[0];
@@ -221,6 +228,60 @@ if(isset($check) && $check == true){
 
 
             })
+
+        </script>
+
+        
+        <div id="configuration" style="display: none;">
+
+                <button id="changePass">';echo $lang['config_1'];echo '</button>
+
+                <div class="lang_selector">
+
+                    <ul>';echo $lang["language"];echo '
+
+                        <li><a href="admin.php?lang=es"><img src="assets/icon/es_flag.png" width=20px heigth=20px> Español</a></li>
+                        <li><a href="admin.php?lang=en"><img src="assets/icon/en_flag.png" width=20px heigth=20px> English</a></li>
+                        <li><a href="admin.php?lang=de"><img src="assets/icon/de_flag.png" width=20px heigth=20px> Deutsch</a></li>
+
+                    </ul>
+
+                </div>
+
+        </div>
+
+        <div id="changePassword" style="display: none;">
+
+                <form method="post" action="admin.php">
+                    <p>';echo $lang["config_2"];echo '</p>
+                    <input type="text" name="oldPass">
+                    <p>';echo $lang["config_3"];echo '</p>
+                    <input type="text" name="newPass"><br>
+                    <input type="submit" name="changePass" value="';echo $lang["config_4"];echo '">
+
+                </form>
+
+        </div>
+
+        <script>
+            config=document.getElementById("config");
+            configuration=document.getElementById("configuration");
+            changePass=document.getElementById("changePass");
+            changePassword=document.getElementById("changePassword");
+
+            config.addEventListener("click", () =>{
+            
+                configuration.style.display = "block";
+            
+            })
+
+            changePass.addEventListener("click", () =>{
+            
+                configuration.style.display = "none";
+                changePassword.style.display = "block";
+            
+            })
+        
 
         </script>
 

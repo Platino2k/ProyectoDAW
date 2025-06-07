@@ -70,6 +70,7 @@ footer {
     left: 37vw;
     top: 23vh;
     flex-wrap: wrap;
+    position: absolute;
 }
 
 .window div{
@@ -79,10 +80,22 @@ footer {
     
 }
 
-.window{
+.windowINFO{
+    border: 5px solid black;
+    background-color: lightgray;
+    width: 15vw;
+    height: 60vh;
+    left: 37vw;
+    top: 23vh;
     position: absolute;
 }
 
+.windowINFO div{
+    margin: auto;
+    border: 5px solid black;
+    width: 40%;
+    
+}
 /* NAVBAR IZQUERDA */
 
 .leftMenu ul{
@@ -107,4 +120,48 @@ footer {
 .window div ul li img{
     width: 25px;
     height: 25px;
+}
+
+/* MAPA */
+
+.windowMAP{
+    border: 5px solid black;
+    background-color: lightgray;
+    width: 40vw;
+    height: 60vh;
+    left: 37vw;
+    top: 23vh;
+    position: absolute;
+    overflow: auto;
+    display: flex;
+    text-align: center;
+}
+
+.windowMAP table {
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.windowMAP table tr td{
+    padding: 0;
+    margin: 0;
+    width: 3vw;
+    height: 3vw;
+    border: 2px dashed white;
+    
+}
+
+.windowMAP table tr .click{
+    cursor: pointer;
+    
+}
+
+
+.windowMAP #atack{
+    width: 30vw;
+    height: 50vh;
+    left: 5vw;
+    top: 5vh;
+    position: absolute;
+    
 }

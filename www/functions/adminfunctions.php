@@ -34,8 +34,26 @@ if ($check == true){
         CREATEWORLD($db);
     }
 
+    if(isset($_POST['changePass'])){
+        CHANGEPASS($db);
+    }
+
 }
 
+function CHANGEPASS($db){
+
+    $sql = "USE USERS_DB;";
+    $db->query($sql);
+
+    $newPass = $_POST['newPass'];
+
+    $user = $_SESSION['USER'];
+
+    $sql = "UPDATE USERS SET USER_PASSWORD = '".$newPass."' WHERE USER_NAME = '".$user."';";
+    $db->query($sql);
+
+    $_SESSION['PASS'] = $newPass;
+}
 
 function DBCON(){
 
@@ -177,6 +195,12 @@ function CREATEWORLD($db){
             FOREIGN KEY (TOWN_ID) REFERENCES TOWN(TOWN_ID)
         );
 
+        CREATE TABLE IF NOT EXISTS PROD_LIST(
+            TOWN_ID INT NOT NULL,
+            PRODTIME DATETIME NOT NULL,
+            FOREIGN KEY (TOWN_ID) REFERENCES TOWN(TOWN_ID)
+        );
+
         CREATE TABLE IF NOT EXISTS MAP(
             SQUARE_ID INT NOT NULL,
             POS_X INT NOT NULL,
@@ -198,7 +222,8 @@ function CREATEWORLD($db){
             L_CAVALRY INT NOT NULL,
             H_CAVALRY INT NOT NULL,
             CONSTRAINT ARMY_ID PRIMARY KEY (ARMY_ID),
-            FOREIGN KEY (PLAYER_ID) REFERENCES PLAYERS(PLAYER_ID)
+            FOREIGN KEY (PLAYER_ID) REFERENCES PLAYERS(PLAYER_ID),
+            FOREIGN KEY (POSITION) REFERENCES TOWN(TOWN_ID)
         );
 
         CREATE TABLE IF NOT EXISTS LETTER(
@@ -225,6 +250,18 @@ function CREATEWORLD($db){
 
     $db->query("use USERS_DB;");
     $db->query("INSERT INTO WORLDSTATUS VALUES ('$worldname', '$txt', 'RUNNING', '$mapsize', '$playerqty');");
+
+    //CREO EL MAPA
+    $counter=0;
+    for($i=0;$i<$mapsize;$i++){
+        
+        for($n=0;$n<$mapsize;$n++){
+            $db->query("use ".$txt.";");
+            $db->query("INSERT INTO MAP (SQUARE_ID,POS_X,POS_Y) VALUES (".$counter.",".$i.",".$n.");");
+            $counter++;
+        }
+
+    }
 
 
     $db = null; // Cierro la conexion con la base de datos

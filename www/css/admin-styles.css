@@ -276,3 +276,46 @@ body{
     height: 5vw;
     width: 12vw;
 }
+
+/* Config */
+
+#configuration{
+    position: absolute;
+    border: 3px solid black;
+    background-color: #0097A7;
+    text-align: center;
+    justify-items: center;
+    height: 20vw;
+    width: 20vh;
+    left: 50vw;
+    top: 30vh;
+}
+
+#changePass{
+
+    margin-top: 15px;
+    background-color:#0097A7;
+    color:white;
+    border: 2px solid white;
+
+
+}
+#changePass:hover{
+
+    background-color:#006873;
+    cursor: pointer;
+
+}
+
+#changePassword{
+    position: absolute;
+    border: 3px solid black;
+    background-color: #0097A7;
+    text-align: center;
+    justify-items: center;
+    height: 20vw;
+    width: 40vh;
+    left: 45vw;
+    top: 25vh;
+    color:white;
+}

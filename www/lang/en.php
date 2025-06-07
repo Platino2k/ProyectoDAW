@@ -45,6 +45,14 @@
         "playerlist_6" => "Birthdate",
         "playerlist_7" => "MOD",
 
+        // Panel Config
+
+        "config_1" => "Change Password",
+
+        "config_2" => "Old Password",
+        "config_3" => "New Password",
+        "config_4" => "Change",
+
         // Index.php
 
         // Registro

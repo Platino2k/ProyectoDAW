@@ -45,6 +45,14 @@
         "playerlist_6" => "Fecha de Nacimiento",
         "playerlist_7" => "MOD",
 
+        // Panel Config
+
+        "config_1" => "Cambiar Contraseña",
+
+        "config_2" => "Antigua Contraseña",
+        "config_3" => "Nueva Contraseña",
+        "config_4" => "Cambiar",
+
         // Index.php
 
         // Registro
