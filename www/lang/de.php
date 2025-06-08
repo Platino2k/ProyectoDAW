@@ -108,6 +108,16 @@
         "stable_1" => "Leichte Kavallerie",
         "stable_2" => "Schwere Cavalry",
 
+        //Lista Mensajes
+
+        "msg_1" => "Nachrichten Liste",
+        "msg_2" => "Senden",
+        "msg_3" => "Von:",
+        "msg_4" => "Der spieler: ",
+        "msg_5" => "existiert NICHT!",
+        "msg_6" => "Keine Nachrichten!",
+
+
 
     );
 

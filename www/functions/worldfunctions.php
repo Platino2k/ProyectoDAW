@@ -12,15 +12,17 @@ $db = DBCON();
 if (empty($_GET["world"])){
     $WORLD = $_POST["world"];
 } else {
-
-$WORLD = $_GET["world"];
+    $WORLD = $_GET["world"];
 }
 
 $check = CHECKUSER($db);
 if ($check == true){
     ADDPLAYER($db,$WORLD);
-    LOADRESOURCES($db,$WORLD,$building);
     
+
+     if(isset($_POST['battle'])){
+        BATTLE($db,$WORLD,$lang,$armyPOWER);
+    }
     if(!empty($_POST['UNITPROD'])){
         UNITPROD($db,$WORLD,$armyCOST);
     }
@@ -29,6 +31,8 @@ if ($check == true){
         
         UPGRADEBUILDING($db,$WORLD,$buildingCOST);
     }
+    
+    LOADRESOURCES($db,$WORLD,$building);
 
 }
 
@@ -108,6 +112,186 @@ function ADDPLAYER($db,$world){
     }
 
 }
+
+
+function BATTLE($db,$world,$lang,$armyPOWER){
+
+    $sql = "USE ".$world.";";
+    $db->query($sql);
+
+    // Ejercito atacante
+    $quantities1 = [
+    "SWORDMAN" => $_POST['swordman'],
+    "PIKEMAN" => $_POST['pikeman'],
+    "ARCHER" => $_POST['archer'],
+    "L_CAVALRY" => $_POST['l_cavalry'],
+    "H_CAVALRY" => $_POST['h_cavalry'],
+    ];
+
+    //Defensor
+    $objective = $_POST['objective'];
+
+   // Ejercito 1
+   $army1 = []; 
+    foreach ($quantities1 as $unit => $count) {
+        $power = $armyPOWER[$unit][0];
+            for ($i = 0; $i < intval($count); $i++) {
+                $army1[] = $power;
+            }
+        
+    }
+
+    shuffle($army1);
+
+    // Ejercito 2
+    $army2=[]; 
+    $sql = "SELECT * FROM ARMY WHERE POSITION = '".$objective."';";
+    $result=$db->query($sql);
+    $result=$result->fetch(PDO::FETCH_ASSOC);
+
+    if(!empty($result)){
+
+        // Ejercito defensor
+        $quantities2 = [
+        "SWORDMAN" => $result['SWORDMAN'],
+        "PIKEMAN" => $result['PIKEMAN'],
+        "ARCHER" => $result['ARCHER'],
+        "L_CAVALRY" => $result['L_CAVALRY'],
+        "H_CAVALRY" => $result['H_CAVALRY'],
+        ];
+
+        foreach ($quantities2 as $unit => $count) {
+        $power = $armyPOWER[$unit][0]; 
+            for ($i = 0; $i < $count; $i++) {
+                $army2[] = $power;
+            }
+        }
+        shuffle($army2);
+
+    
+
+
+        if(count($army1) > count($army2)){
+
+            $MAXquantity = count($army1); 
+        } else {
+            $MAXquantity = count($army2); 
+        }
+
+        $ATTPOINT = 0;
+        $DEFPOINT = 0;
+
+        for($i=0;$i<=$MAXquantity;$i++){
+            $unit1 = $army1[$i] ?? 0;
+            $unit2 = $army2[$i] ?? 0;
+
+            if($unit1 < $unit2){
+                $DEFPOINT++;
+                if($unit1 == 2){$quantities1['SWORDMAN']--;}
+                if($unit1 == 4){$quantities1['PIKEMAN']--;}
+                if($unit1 == 3){$quantities1['ARCHER']--;}
+                if($unit1 == 5){$quantities1['L_CAVALRY']--;}
+                if($unit1 == 8){$quantities1['H_CAVALRY']--;}
+
+            } else if ($unit1 > $unit2){
+
+                $ATTPOINT++;
+                if($unit2 == 2){$quantities2['SWORDMAN']--;}
+                if($unit2 == 4){$quantities2['PIKEMAN']--;}
+                if($unit2 == 3){$quantities2['ARCHER']--;}
+                if($unit2 == 5){$quantities2['L_CAVALRY']--;}
+                if($unit2 == 8){$quantities2['H_CAVALRY']--;}
+            }
+
+        }
+
+        // Selecciona el id de la ciudad
+        $sql = "SELECT TOWN.TOWN_ID FROM TOWN JOIN PLAYERS ON TOWN.PLAYER_ID = PLAYERS.PLAYER_ID WHERE PLAYERS.PLAYER_NAME = '".$_SESSION['USER']."' LIMIT 1;";
+        $result2=$db->query($sql);
+        $result2=$result2->fetch(PDO::FETCH_ASSOC);
+        $townid = $result2['TOWN_ID'];
+        
+        // Actualizamos el ejercito atacante
+        $sql = "UPDATE ARMY SET
+        SWORDMAN = '".$quantities1['SWORDMAN']."',
+        PIKEMAN = '".$quantities1['PIKEMAN']."',
+        ARCHER = '".$quantities1['ARCHER']."',
+        L_CAVALRY = '".$quantities1['L_CAVALRY']."',
+        H_CAVALRY = '".$quantities1['H_CAVALRY']."'
+        WHERE POSITION = '".$townid."';";
+        $db->query($sql);
+
+        // Actualizamos el ejercito defensor
+        $sql = "UPDATE ARMY SET
+        SWORDMAN = '".$quantities2['SWORDMAN']."',
+        PIKEMAN = '".$quantities2['PIKEMAN']."',
+        ARCHER = '".$quantities2['ARCHER']."',
+        L_CAVALRY = '".$quantities2['L_CAVALRY']."',
+        H_CAVALRY = '".$quantities2['H_CAVALRY']."'
+        WHERE POSITION = '".$objective."';";
+        $db->query($sql);
+
+    } else {
+        $ATTPOINT = 1;
+        $DEFPOINT = 0;
+
+        // Selecciona el id de la ciudad
+        $sql = "SELECT TOWN.TOWN_ID FROM TOWN JOIN PLAYERS ON TOWN.PLAYER_ID = PLAYERS.PLAYER_ID WHERE PLAYERS.PLAYER_NAME = '".$_SESSION['USER']."' LIMIT 1;";
+        $result2=$db->query($sql);
+        $result2=$result2->fetch(PDO::FETCH_ASSOC);
+        $townid = $result2['TOWN_ID'];
+    }
+
+    if ($ATTPOINT > $DEFPOINT){
+
+        $sql = "SELECT WOOD,FOOD,STONE,IRON FROM TOWN WHERE TOWN_ID = '".$objective."';";
+        $result3=$db->query($sql);
+        $result3=$result3->fetch(PDO::FETCH_ASSOC);
+
+        $wood = floor($result3['WOOD'] / 10);
+        $food = floor($result3['FOOD'] / 10);
+        $stone = floor($result3['STONE'] / 10);
+        $iron = floor($result3['IRON'] / 10);
+
+        $sql = "UPDATE TOWN SET
+        WOOD = WOOD - '".$wood."',
+        FOOD = FOOD - '".$food."',
+        STONE = STONE - '".$stone."',
+        IRON = IRON - '".$iron."'
+        WHERE TOWN_ID = '".$objective."';";
+        $db->query($sql);
+
+        // Comprobamos que no supere el limite para que no de error
+        $sql = "SELECT BUILDING FROM TOWN_BUILDINGS WHERE TOWN_ID = '".$townid."';";
+        $result4=$db->query($sql);
+        $result4=$result4->fetchALL(PDO::FETCH_ASSOC);
+
+        $sql = "SELECT WOOD,FOOD,STONE,IRON FROM TOWN WHERE TOWN_ID = '".$townid."';";
+        $result5=$db->query($sql);
+        $result5=$result5->fetch(PDO::FETCH_ASSOC);
+
+        $MAX=500;
+        if ($result4[5]["BUILDING"] == "storehouse_2"){$MAX=1000;}
+        else if ($result4[5]["BUILDING"] == "storehouse_3"){$MAX=1500;}
+
+        if (($result5['WOOD']+$wood) > $MAX){$wood=$MAX;} else {$wood=$result5['WOOD']+$wood;}
+        if (($result5['FOOD']+$food) > $MAX){$food=$MAX;} else {$food=$result5['FOOD']+$food;}
+        if (($result5['STONE']+$stone) > $MAX){$stone=$MAX;} else {$stone=$result5['STONE']+$stone;}
+        if (($result5['IRON']+$iron) > $MAX){$iron=$MAX;} else {$iron=$result5['IRON']+$iron;}
+
+        $sql = "UPDATE TOWN SET
+        WOOD = '".$wood."',
+        FOOD = '".$food."',
+        STONE = '".$stone."',
+        IRON = '".$iron."'
+        WHERE TOWN_ID = '".$townid."';";
+        $db->query($sql);
+
+    }
+
+
+
+}
 function CREATETOWN($db,$world,$playerid){
     
    
@@ -131,18 +315,21 @@ function CREATETOWN($db,$world,$playerid){
     $result2=$db->query($sql);
     $result2=$result2->fetch(PDO::FETCH_ASSOC);
 
-    $square = rand(0,($result['WORLD_SIZE']*$result['WORLD_SIZE']));
-    $sql = "SELECT TOWN_ID FROM MAP WHERE TOWN_ID = '".$square."';";
-    $result3=$db->query($sql);
-    $result3=$result3->fetch(PDO::FETCH_ASSOC);
-
-    if (!$result3['TOWN_ID']){
-
-    //Le asignamos cuadro en el mapa
-        $sql = "UPDATE MAP SET PLAYER_ID = '".$playerid."', TOWN_ID = '".$result2['TOWN_ID']."' WHERE SQUARE_ID = ".$square.";";
+    $spawn=false;
+    do{
+        $square = rand(0,($result['WORLD_SIZE']*$result['WORLD_SIZE']));
+        $sql = "SELECT TOWN_ID FROM MAP WHERE TOWN_ID = '".$square."';";
         $result3=$db->query($sql);
-    }
+        $result3=$result3->fetch(PDO::FETCH_ASSOC);
 
+        if (!$result3['TOWN_ID']){
+
+        //Le asignamos cuadro en el mapa
+            $sql = "UPDATE MAP SET PLAYER_ID = '".$playerid."', TOWN_ID = '".$result2['TOWN_ID']."' WHERE SQUARE_ID = ".$square.";";
+            $result3=$db->query($sql);
+            $spawn=true;
+        }
+    } while ($spawn==false);
 
     
 }
@@ -317,6 +504,13 @@ function LOADRESOURCES($db,$world,$building){
         $buildingKEY = array_keys($building); 
         $buildingVALUE = array_values($building);
         $counter = 0;
+        
+        
+
+        $sql = "SELECT FOOD, WOOD, STONE, IRON FROM TOWN WHERE TOWN_ID = '".$townid."'";
+        $result4=$db->query($sql);
+        $result4=$result4->fetch(PDO::FETCH_ASSOC);
+
         for($i=0;$i<count($building);$i++){
             for($n=0;$n<count($result3);$n++){
                 if($buildingKEY[$i] == $result3[$n]['BUILDING'] && $counter < 4){
@@ -326,20 +520,85 @@ function LOADRESOURCES($db,$world,$building){
                     $txt = $buildingKEY[$i];
                     $resource = explode('_',$txt);
 
-                    $sql = "UPDATE TOWN SET ".$resource[0]." = ".$resource[0]." + ".$ammount." WHERE TOWN_ID = '".$townid."';";
-                    $db->query($sql);
-
-                    $counter++;
                     
+        
+                    $wood = $result4['WOOD']+$ammount;
+                    $food = $result4['FOOD']+$ammount;
+                    $stone = $result4['STONE']+$ammount;                    
+                    $iron = $result4['IRON']+$ammount;
+                    
+                    $newWood = $result4['WOOD'] + $ammount;
+                    
+                    if($resource[0] == 'wood'){
+                        if (($result4['WOOD'] + $ammount) >= 500){
+                        $newWood=500;
+                        if ($result3[5]["BUILDING"] == "storehouse_2" && ($result4['WOOD'] + $ammount) >= 1000){$newWood=1000;}
+                        else if ($result3[5]["BUILDING"] == "storehouse_3" && ($result4['WOOD'] + $ammount) >= 1500){$newWood=1500;}
+
+                            $sql = "UPDATE TOWN SET ".$resource[0]." = ".$newWood." WHERE TOWN_ID = '".$townid."';";
+                            $db->query($sql);
+
+                        } else {
+                            $sql = "UPDATE TOWN SET ".$resource[0]." = ".$wood." WHERE TOWN_ID = '".$townid."';";
+                            $db->query($sql);
+                    }
+
+                } else if ($resource[0] == 'food') {
+                    if (($result4['FOOD'] + $ammount) >= 500){
+                        $newFood=500;
+                        if ($result3[5]["BUILDING"] == "storehouse_2" && ($result4['FOOD'] + $ammount) >= 1000){$newFood=1000;}
+                        else if ($result3[5]["BUILDING"] == "storehouse_3" && ($result4['FOOD'] + $ammount) >= 1500){$newFood=1500;}
+
+                            $sql = "UPDATE TOWN SET ".$resource[0]." = ".$newFood." WHERE TOWN_ID = '".$townid."';";
+                            $db->query($sql);
+
+                        } else {
+                            $sql = "UPDATE TOWN SET ".$resource[0]." = ".$food." WHERE TOWN_ID = '".$townid."';";
+                            $db->query($sql);
+                    }
+
+                } else if($resource[0] == 'stone'){
+                    
+                    if (($result4['STONE'] + $ammount) >= 500){
+                        $newStone=500;
+                        if ($result3[5]["BUILDING"] == "storehouse_2" && ($result4['STONE'] + $ammount) >= 1000){$newStone=1000;}
+                        else if ($result3[5]["BUILDING"] == "storehouse_3" && ($result4['STONE'] + $ammount) >= 1500){$newStone=1500;}
+
+                            $sql = "UPDATE TOWN SET ".$resource[0]." = ".$newStone." WHERE TOWN_ID = '".$townid."';";
+                            $db->query($sql);
+
+                        } else {
+                            $sql = "UPDATE TOWN SET ".$resource[0]." = ".$stone." WHERE TOWN_ID = '".$townid."';";
+                            $db->query($sql);
+                    }
+
+                } else if ($resource[0] == 'iron'){
+                    if (($result4['IRON'] + $ammount) >= 500){
+                        $newIron=500;
+                        if ($result3[5]["BUILDING"] == "storehouse_2" && ($result4['IRON'] + $ammount) >= 1000){$newIron=1000;}
+                        else if ($result3[5]["BUILDING"] == "storehouse_3" && ($result4['IRON'] + $ammount) >= 1500){$newIron=1500;}
+
+                            $sql = "UPDATE TOWN SET ".$resource[0]." = ".$newIron." WHERE TOWN_ID = '".$townid."';";
+                            $db->query($sql);
+
+                        } else {
+                            $sql = "UPDATE TOWN SET ".$resource[0]." = ".$iron." WHERE TOWN_ID = '".$townid."';";
+                            $db->query($sql);
+                        }
+                    
+
+                    
+                    }
+                
+                    $counter++;
                 }
             }
-        }
 
    
+        }
+
+
     }
-
-
-
 }
 
 function UNITPROD($db,$world,$armyCOST){

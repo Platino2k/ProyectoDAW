@@ -35,7 +35,7 @@
                 <li id='msg'>
                     ";echo $lang["worldnavbar_4"];echo"
                 </li>
-                <li id='info'>
+                <li id='battle'>
                     ";echo $lang["worldnavbar_5"];echo"
                 </li>
             </ul>

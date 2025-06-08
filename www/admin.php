@@ -217,7 +217,7 @@ if(isset($check) && $check == true){
                             <input type="number" id="playerqty" name="player_qty" placeholder="Min = 8 / Max = 64"  max="64" min="8"><br>
 
                             <label>';echo $lang["createworld_5"];echo '</label><br>
-                            <input type="number" id="mapsize" name="map_size" placeholder="Max = 100" max="100"> <br>
+                            <input type="number" id="mapsize" name="map_size" placeholder="Max = 10" max="10"> <br>
                             
                             <input type="submit"  id="submit" name="createWorld_form" value="';echo $lang["createworld_1"];echo '">
 

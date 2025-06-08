@@ -165,3 +165,32 @@ footer {
     position: absolute;
     
 }
+
+/* MSG */
+
+.windowMSG{
+    border: 5px solid black;
+    background-color: lightgray;
+    width: 40vw;
+    height: 60vh;
+    left: 37vw;
+    top: 23vh;
+    position: absolute;
+    overflow: auto;
+    display: flex;
+    text-align: center;
+}
+
+#formMSG{
+    border: 5px solid black;
+    background-color: lightgray;
+    width: 40vw;
+    height: 60vh;
+    left: 37vw;
+    top: 23vh;
+    position: absolute;
+    overflow: auto;
+    display: flex;
+    text-align: center;
+    z-index: 1;
+    }

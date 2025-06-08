@@ -108,6 +108,15 @@
         "stable_1" => "Caballería Ligera",
         "stable_2" => "Caballería Pesada",
 
+        //Lista Mensajes
+
+        "msg_1" => "Lista de Mensajes",
+        "msg_2" => "Enviar",
+        "msg_3" => "De:",
+        "msg_4" => "El jugador: ",
+        "msg_5" => "NO existe!",
+        "msg_6" => "No tienes mensajes!",
+
  
     );
 

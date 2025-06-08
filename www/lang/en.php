@@ -107,6 +107,16 @@
 
         "stable_1" => "Light Cavalry",
         "stable_2" => "Heavy Cavalry",
+
+        //Lista Mensajes
+
+        "msg_1" => "Message List",
+        "msg_2" => "Send",
+        "msg_3" => "From:",
+        "msg_4" => "The player: ",
+        "msg_5" => "does NOT exist!",
+        "msg_6" => "No messages!",
+
     );
 
 ?>
