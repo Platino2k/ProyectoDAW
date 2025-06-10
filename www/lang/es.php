@@ -53,11 +53,16 @@
         "config_3" => "Nueva Contraseña",
         "config_4" => "Cambiar",
 
+        "config_5" => "Cambiar de mundo",
+
         // Index.php
 
         // Registro
 
         "register_1" => "Registro",
+        "register_2" => "Usuario ya existe!",
+        "register_3" => "Email en uso!",
+        "register_4" => "Debe tener una letra mayúscula y un numero",
 
         // Main.php
 
@@ -96,6 +101,9 @@
         "city_2" => "Almacén",
         "city_3" => "Cuartel",
         "city_4" => "Establo",
+        
+        "city_5" => "Nivel Máximo!",
+        "city_6" => "Nivel",
 
         // Cuartel
 
@@ -103,10 +111,14 @@
         "barrack_2" => "Piquero",
         "barrack_3" => "Arquero",
 
+        "barrack_4" => "Necesitas Cuartel!",
+
          // Establo
 
         "stable_1" => "Caballería Ligera",
         "stable_2" => "Caballería Pesada",
+        
+        "stable_3" => "Necesitas un Establo!",
 
         //Lista Mensajes
 
@@ -117,6 +129,10 @@
         "msg_5" => "NO existe!",
         "msg_6" => "No tienes mensajes!",
 
+        // Info
+
+        "info_1" => "Ejercito: ",
+        "info_2" => "No tienes ejercito!",
  
     );
 

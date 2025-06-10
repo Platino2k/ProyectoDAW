@@ -52,12 +52,17 @@
         "config_2" => "Old Password",
         "config_3" => "New Password",
         "config_4" => "Change",
+        
+        "config_5" => "Change World",
 
         // Index.php
 
         // Registro
 
         "register_1" => "Register",
+        "register_2" => "The user already Exists!",
+        "register_3" => "Email in use!",
+        "register_4" => "Must have a capital letter and a number",
 
         // Main.php
 
@@ -96,17 +101,24 @@
         "city_2" => "Storehouse",
         "city_3" => "Barracks",
         "city_4" => "Stable",
+    
+        "city_5" => "Max Level!",
+        "city_6" => "Level",
 
         // Cuartel
 
         "barrack_1" => "Swordman",
         "barrack_2" => "Pikeman",
         "barrack_3" => "Archer",
+        
+        "barrack_4" => "You need Barracks!",
 
         // Establo
 
         "stable_1" => "Light Cavalry",
         "stable_2" => "Heavy Cavalry",
+
+        "stable_3" => "You need a Stable!",
 
         //Lista Mensajes
 
@@ -116,6 +128,11 @@
         "msg_4" => "The player: ",
         "msg_5" => "does NOT exist!",
         "msg_6" => "No messages!",
+
+        // Info
+
+        "info_1" => "Army: ",
+        "info_2" => "You dont have an army!",
 
     );
 

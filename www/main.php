@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
     session_start();
     include "config.php";
     include "functions/mainfunctions.php";
@@ -17,14 +18,23 @@
 <body>
     
     <div class="menu-top">
-        <?php
-    
+    <?php
             echo "<h3>".$lang["welcome_1"].": ".$_SESSION['USER']."</h3>";
-    
+
+            echo "
+            <div class='lang_selector'>
+                <div class='lang_main'>".$lang['language']."</div>
+                <ul class='lang_menu'>
+                    <li><a href='main.php?lang=es'><img src='../assets/icon/es_flag.png' width='20px' height='20px'> Español</a></li>
+                    <li><a href='main.php?lang=en'><img src='../assets/icon/en_flag.png' width='20px' height='20px'> English</a></li>
+                    <li><a href='main.php?lang=de'><img src='../assets/icon/de_flag.png' width='20px' height='20px'> Deutsch</a></li>
+                </ul>
+            </div>";
+
             echo '<a href="index.php?logout"><img id="config" src="assets/icon/exit.png"></a>';
         ?>
-
     </div>
+
 
     <div class="menu">
         <div class="worldSelector">

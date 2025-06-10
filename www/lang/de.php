@@ -52,12 +52,18 @@
         "config_2" => "Alter Passwort",
         "config_3" => "Neue Passwort",
         "config_4" => "Ändern",
+        
+        "config_5" => "Welt Ändern",
 
          // Index.php
 
         // Registro
 
         "register_1" => "Registrieren",
+        "register_2" => "Der Benutzer existiert!",
+        "register_3" => "E-Mail in Verwendung!",
+        "register_4" => "Muss einen Großbuchstaben und eine Zahl enthalten",
+
 
         // Main.php
 
@@ -81,7 +87,7 @@
         "worldnavbar_4" => "Nachricht",
         "worldnavbar_5" => "Bericht",
         "worldnavbar_6" => "Kaserne",
-        "worldnavbar_7" => "Scheune",
+        "worldnavbar_7" => "Stall",
 
        // Recursos
 
@@ -95,7 +101,10 @@
         "city_1" => "Rathaus",
         "city_2" => "Speichern",
         "city_3" => "Kaserne",
-        "city_4" => "Scheune",
+        "city_4" => "Stall",
+        
+        "city_5" => "Maximalstufe!",
+        "city_6" => "Stufe",
 
         // Cuartel
 
@@ -103,10 +112,14 @@
         "barrack_2" => "Pikenier",
         "barrack_3" => "Bogenschütze",
 
+        "barrack_4" => "Du brauchst einer Kaserne!",
+
          // Establo
 
         "stable_1" => "Leichte Kavallerie",
         "stable_2" => "Schwere Cavalry",
+        
+        "stable_3" => "Du brauchst einen Stall!",
 
         //Lista Mensajes
 
@@ -116,7 +129,11 @@
         "msg_4" => "Der spieler: ",
         "msg_5" => "existiert NICHT!",
         "msg_6" => "Keine Nachrichten!",
+        
+        // Info
 
+        "info_1" => "Armee: ",
+        "info_2" => "Sie habe keine Armee!",
 
 
     );

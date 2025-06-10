@@ -1,100 +1,157 @@
-body{
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     background-image: url('../assets/images/fondo1.jpg');
-    background-size: cover;    
-    background-position: center;  
-    background-repeat: no-repeat; 
-    height: 100vh; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    justify-content: center;  
+    align-items: center;
+    justify-content: center;
 }
 
+/* Footer */
 footer {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
 }
 
-/*  Menu */
-
-.menu{
-    display: block;
-
-    width: 30vw;
-    height: 50vh;
-
+/* Menu */
+.menu {
+    width: 90%;
+    max-width: 400px;
+    background-color: rgba(210, 180, 140, 0.85);
     border-radius: 12px;
-    background-color: rgba(210, 180, 140, 0.7);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .menuHeader {
     display: flex;
-    
+    background: #8b5e3c;
 }
 
-.menuHeader div{
-    display: flex;
-    width: 50vw;
-    justify-content: center;
-}
-
-.menuHeader div{
+.menuHeader div {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
     border-bottom: 3px solid black;
 }
 
-.menuHeader #register{
+.menuHeader #register {
     border-left: 3px solid black;
 }
 
-.menuHeader #register:hover{
-    background-color: rgba(210, 180, 140, 0.8);
-    border-top-right-radius: 12px;
-    cursor: pointer;
-
+.menuHeader #login:hover {
+    background-color: #a3724d;
+}
+.menuHeader #register:hover {
+    background-color: #a3724d;
 }
 
-.menuHeader #login:hover{
-    background-color: rgba(210, 180, 140, 0.8);
-    border-top-left-radius: 12px;
-    cursor: pointer;
-
-}
-
-#loginBox{
+#loginBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
     text-align: center;
-    margin-top: 15%;
+    height: 60vh ;
 }
 
-
-#loginBox img{
-    position: relative;
-    top: 5px;
-}
-
-
-#registerBox{
+#registerBox {
+    height: 60vh ;
+    font-size: 10px;
+    padding: 20px;
     text-align: center;
-    position: relative;
-    bottom: 150px;
-
-    visibility: hidden;
+    display: none;
 }
 
+/* Formularios */
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.form input {
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid rgb(250, 193, 89);
+    border-radius: 5px;
+    background-color: wheat;
+    font-size: 1rem;
+}
+
+.form img {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.formbutton {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: 2px solid black;
+    background-color: wheat;
+    box-shadow: 2px 2px 3px black;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.formbutton:hover {
+    background-color: rgb(231, 193, 122);
+}
+
+.formbutton:active {
+    position: relative;
+    box-shadow: 1px 1px 2px black;
+    top: 2px;
+    left: 2px;
+}   
 
 /* Noticias */
-
-.news{
-    margin-top: 50px;
-    width: 30vw;
-    height: 20vh;
-
-    border-radius: 12px;
+.news {
+    margin-top: 30px;
+    width: 90%;
+    max-width: 400px;
+    height: 100px;
     background-color: rgba(210, 180, 140, 0.7);
+    border-radius: 12px;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .form input {
+        font-size: 0.9rem;
+    }
+
+    .formbutton {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+
+    .menuHeader div {
+        font-size: 1rem;
+    }
 }

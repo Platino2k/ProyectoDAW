@@ -28,6 +28,8 @@ if ($check == true){
 
      if(isset($_GET['delWorld'])){
         delWorld($db);
+        header("Location: admin.php?showList=true");
+        exit;
     }
 
     if(isset($_POST['createWorld_form'])){
@@ -38,7 +40,36 @@ if ($check == true){
         CHANGEPASS($db);
     }
 
+    if(isset($_GET['changeStatus'])){
+        CHANGESTATUS($db,$lang);
+    }
+
+   
+
 }
+
+
+
+function CHANGESTATUS($db,$lang){
+    $sql = "USE USERS_DB;";
+    $db->query($sql);
+
+    $world = $_GET['changeStatus'];
+
+    $sql = "SELECT WORLD_STATUS FROM WORLDSTATUS WHERE WORLD_ID = '".$world."';";
+    $result=$db->query($sql);
+    $result=$result->fetch(PDO::FETCH_ASSOC);
+
+    if ($result['WORLD_STATUS'] == 'RUNNING') {
+        $sql = "UPDATE WORLDSTATUS SET WORLD_STATUS = 'NOTRUNNING' WHERE WORLD_ID = '".$world."';";
+        $db->query($sql);
+    } else {
+        $sql = "UPDATE WORLDSTATUS SET WORLD_STATUS = 'RUNNING' WHERE WORLD_ID = '".$world."';";
+        $db->query($sql);
+    }
+
+}
+
 
 function CHANGEPASS($db){
 
@@ -46,13 +77,21 @@ function CHANGEPASS($db){
     $db->query($sql);
 
     $newPass = $_POST['newPass'];
+    
+    $oldPass = $_POST['oldPass'];
 
-    $user = $_SESSION['USER'];
+    if($oldPass == $_SESSION['PASS']){
+        $user = $_SESSION['USER'];
 
-    $sql = "UPDATE USERS SET USER_PASSWORD = '".$newPass."' WHERE USER_NAME = '".$user."';";
-    $db->query($sql);
+        $sql = "UPDATE USERS SET USER_PASSWORD = '".$newPass."' WHERE USER_NAME = '".$user."';";
+        $db->query($sql);
 
-    $_SESSION['PASS'] = $newPass;
+        $_SESSION['PASS'] = $newPass;
+    } else {
+        echo "<script>
+            alert('LAS CONTRASEÑA ANTIGUA ES INCORRECTA');
+        </script>";
+    }
 }
 
 function DBCON(){
@@ -179,6 +218,7 @@ function CREATEWORLD($db){
             FOOD INT NOT NULL,
             STONE INT NOT NULL,
             IRON INT NOT NULL,
+            TOWN_NAME VARCHAR (12),
             CONSTRAINT TOWN_PK PRIMARY KEY (TOWN_ID),
             FOREIGN KEY (PLAYER_ID) REFERENCES PLAYERS(PLAYER_ID)
         );
@@ -230,17 +270,50 @@ function CREATEWORLD($db){
             SENDER_ID INT NOT NULL,
             RECEIVER_ID INT NOT NULL,
             CONTENT VARCHAR (1000),
+            TITTLE VARCHAR (30),
             CONSTRAINT LETTER_ID PRIMARY KEY (LETTER_ID),
             FOREIGN KEY (SENDER_ID) REFERENCES PLAYERS(PLAYER_ID),
             FOREIGN KEY (RECEIVER_ID) REFERENCES PLAYERS(PLAYER_ID)
         );
 
         CREATE TABLE IF NOT EXISTS BATTLE_LOG(
+            BATTLE_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
             ATT_ID INT NOT NULL,
             DEF_ID INT NOT NULL,
+
+            ASWORDMAN INT NOT NULL,
+            APIKEMAN INT NOT NULL,
+            AARCHER INT NOT NULL,
+            AL_CAVALRY INT NOT NULL,
+            AH_CAVALRY INT NOT NULL,
+            
+            DSWORDMAN INT NOT NULL,
+            DPIKEMAN INT NOT NULL,
+            DARCHER INT NOT NULL,
+            DL_CAVALRY INT NOT NULL,
+            DH_CAVALRY INT NOT NULL,
+
+            ASWORDMAN_LOOSES INT NOT NULL,
+            APIKEMAN_LOOSES INT NOT NULL,
+            AARCHER_LOOSES INT NOT NULL,
+            AL_CAVALRY_LOOSES INT NOT NULL,
+            AH_CAVALRY_LOOSES INT NOT NULL,
+
+            DSWORDMAN_LOOSES INT NOT NULL,
+            DPIKEMAN_LOOSES INT NOT NULL,
+            DARCHER_LOOSES INT NOT NULL,
+            DL_CAVALRY_LOOSES INT NOT NULL,
+            DH_CAVALRY_LOOSES INT NOT NULL,
+
+            WOOD INT NOT NULL,
+            FOOD INT NOT NULL,
+            STONE INT NOT NULL,
+            IRON INT NOT NULL,
+
             FOREIGN KEY (ATT_ID) REFERENCES PLAYERS(PLAYER_ID),
             FOREIGN KEY (DEF_ID) REFERENCES PLAYERS(PLAYER_ID)
         );
+
     ");
 
 
@@ -274,9 +347,16 @@ function WORLDLIST($db){
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
-    $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS;";
+    if(isset($_POST['filter']) && $_POST['filter'] == 'ALL'){
+        $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS;";
+    } else if(isset($_POST['filter'])){
+        $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS WHERE WORLD_STATUS = '".$_POST['filter']."';";
+    } else {
+        $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS;";
+    }
     $result=$db->query($sql);
     $WORLD = $result->fetchALL();
+   
    
     foreach ($WORLD as $DATA){
         echo "<tr>
@@ -284,7 +364,10 @@ function WORLDLIST($db){
             <td>$DATA[WORLD_ID]</td>
             <td>$DATA[WORLD_STATUS]</td>
             <td style='border: none; text-align: left; padding-left: 10px; width: 20px;'>
-                <a href='admin.php?delWorld=$DATA[WORLD_ID]'><img src='assets/icon/trashcan.png' /></a>
+                <a href='admin.php?changeStatus=$DATA[WORLD_ID]&showList=true'><img src='assets/icon/serverStatus.webp' /></a>
+            </td>
+            <td style='border: none; text-align: left; padding-left: 10px; width: 20px;'>
+                <a href='admin.php?delWorld=$DATA[WORLD_ID]&showList=true'><img src='assets/icon/trashcan.png' /></a>
             </td>
             </tr>";
     }
@@ -322,7 +405,11 @@ function PLAYERLIST($db){
             <td>$DATA[EMAIL]</td>
             <td>$DATA[BIRTH_DATE]</td>
             <td>$DATA[MODERATOR]</td>
+            <td>$DATA[BANNED]</td>
+            <td style='width:50px;border:none'><a><img id='".$DATA['USER_NAME']."' src='../assets/icon/ban.png' width='30' height='30'></a></td>
             </tr>";
+
+    
     }
     return true;
 }

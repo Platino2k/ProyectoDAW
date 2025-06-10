@@ -16,8 +16,9 @@ $db = DBCON();
     if ($_POST['formdata'] == "LOGIN"){        
             LOGIN($db);
     } else if ($_POST['formdata'] == "REGISTER"){        
-            REGISTER($db);
+            REGISTER($db,$lang);
     }
+    
 
 }
 
@@ -57,7 +58,7 @@ function LOGIN($db){
 
 }
 
-function REGISTER($db){
+function REGISTER($db,$lang){
     
     $name = $_POST["username"];
     $pass = $_POST["password"];
@@ -67,8 +68,32 @@ function REGISTER($db){
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
+    $sql = "SELECT USER_NAME FROM USERS WHERE USER_NAME = '".$name."';";
+    $result=$db->query($sql);
+    $result=$result->fetch(PDO::FETCH_ASSOC);
+
+    if (isset($result['USER_NAME'])){
+        echo "<script>
+            alert('".$lang['register_2']."');
+            window.location.href = 'index.php';
+
+        </script>";
+    }
+
+    $sql = "SELECT EMAIL FROM USERS WHERE EMAIL = '".$email."';";
+    $result2=$db->query($sql);
+    $result2=$result2->fetch(PDO::FETCH_ASSOC);
+
+    if (isset($result2['EMAIL'])){
+        echo "<script>
+            alert('".$lang['register_3']."');
+            window.location.href = 'index.php';
+
+        </script>";
+    }
+
     
-    $sql = "INSERT INTO USERS (USER_NAME, USER_PASSWORD, EMAIL, BIRTH_DATE, MODERATOR) VALUES ('".$name."', '".$pass."', '".$email."', '".$birthdate."', 0)";
+    $sql = "INSERT INTO USERS (USER_NAME, USER_PASSWORD, EMAIL, BIRTH_DATE, MODERATOR,BANNED) VALUES ('".$name."', '".$pass."', '".$email."', '".$birthdate."', 0, 0)";
     $db->query($sql);
 
 

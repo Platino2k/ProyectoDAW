@@ -6,17 +6,16 @@ const register = document.getElementById("register");
 const loginBox = document.getElementById("loginBox");
 const registerBox = document.getElementById("registerBox");
 
-login.addEventListener('click', function () {
-  
-    
-  loginBox.style.visibility = "visible";
-  registerBox.style.visibility = "hidden";
+login.addEventListener('click', function () {  
+    document.getElementById('loginBox').style.display = 'flex';
+    document.getElementById('loginBox').style.display.flexDirection = 'column';
+    document.getElementById('registerBox').style.display = 'none';
 });
 
 
 
 register.addEventListener('click', function () {
-
-  loginBox.style.visibility = "hidden";
-  registerBox.style.visibility = "visible";  
+    document.getElementById('loginBox').style.display = 'none';
+    document.getElementById('registerBox').style.display = 'block';
 });
+

@@ -7,6 +7,10 @@ if (isset($_POST['logout']) || isset($_GET['logout'])) {
     exit;
 }
 
+if(isset($_POST['changePass'])){
+        CHANGEPASS($db);
+}
+
 $db = DBCON();
 
 function DBCON(){
@@ -21,7 +25,28 @@ function DBCON(){
     return $db;
 
 }
+function CHANGEPASS($db){
 
+    $sql = "USE USERS_DB;";
+    $db->query($sql);
+
+    $newPass = $_POST['newPass'];
+    
+    $oldPass = $_POST['oldPass'];
+
+    if($oldPass == $_SESSION['PASS']){
+        $user = $_SESSION['USER'];
+
+        $sql = "UPDATE USERS SET USER_PASSWORD = '".$newPass."' WHERE USER_NAME = '".$user."';";
+        $db->query($sql);
+
+        $_SESSION['PASS'] = $newPass;
+    } else {
+        echo "<script>
+            alert('LAS CONTRASEÑA ANTIGUA ES INCORRECTA');
+        </script>";
+    }
+}
 function CHECKUSER($db){
 
     // Esta funcion es para incrementar la seguridad
@@ -54,7 +79,7 @@ function showWorlds($db,$lang){
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
-    $sql = "select * from WORLDSTATUS;";
+    $sql = "select * from WORLDSTATUS WHERE WORLD_STATUS = 'RUNNING';";
     $result=$db->query($sql);
 
     $WORLD = $result->fetchALL();
@@ -62,19 +87,25 @@ function showWorlds($db,$lang){
     // Indica en que pagina esta y enseña segun la pagina
     if(isset($_GET["WL"])){
         
-        $page = $_GET["WL"] * 8;
+        $page = $_GET["WL"] * 6;
     } else {
-        $page = 1 * 8;   
+        $page = 1 * 6;   
     }
 
     $counter = 0;
 
     foreach ($WORLD as $DATA){
-        if ($counter < $page && $counter >=  ($page-8)){
+        $sql = "USE ".$DATA['WORLD_ID'].";";
+        $db->query($sql);
+
+          $sql = "SELECT COUNT(*) AS PLAYERS FROM PLAYERS";
+            $result2 = $db->query($sql);
+            $result2 = $result2->fetch(PDO::FETCH_ASSOC);
+        if ($counter < $page && $counter >=  ($page-6)){
             echo "<div class='worldBox'>
                     <div class='separator'>
                         <h3>$DATA[WORLD_NAME]</h3>
-                        <h4>".$lang['worldselector_2'].": CANTIDAD</h4>
+                        <h4>".$lang['worldselector_2'].": ".$result2['PLAYERS']."</h4>
                     </div>
                     <a href='world-pages/world.php?world=$DATA[WORLD_ID]'>".$lang['worldselector_3']."</a>
                     
@@ -86,7 +117,7 @@ function showWorlds($db,$lang){
     }
 
     // Muestra la cantidad de paginas
-    $pages = ceil($counter / 8);
+    $pages = ceil($counter / 6);
     
     echo "</div>";
     echo "<div class='pageList'>";

@@ -202,30 +202,30 @@ body{
 
 /* PANEL */
 
-.main div .panelTop{
+.panelTop{
     text-align: center;
 }
 
-.main div .panelMain{
+.panelMain{
     display: block;
     text-align: center;
     font-size: 26px;
 }
 
-.main div .panelMain #name{
+.panelMain #name{
     width: 200px;
 }
 
-.main div .panelMain #playerqty{
+.panelMain #playerqty{
     width: 125px;
 }
 
-.main div .panelMain #mapsize{
+.panelMain #mapsize{
     width: 125px;
 }
 
 
-.main div .panelMain #submit{
+.panelMain #submit{
     margin-top: 3vh;
     width: 200px;
     height: 40px;
@@ -237,11 +237,11 @@ body{
     box-shadow: 2px 2px 3px black;
 }
 
-.main div .panelMain #submit:hover{
+.panelMain #submit:hover{
     background-color: #CFD8DC;
 }
 
-.main div .panelMain #submit:active{
+.panelMain #submit:active{
     position: relative;
     top: 2px;
     left: 2px;
@@ -254,12 +254,20 @@ body{
 .MAINTABLE{
     display: flex;
     justify-content: center;
+    height: 60vh;
+    overflow: scroll;
 }
 
 .MAINTABLE td{
     width: 15vw;
     border-collapse: collapse;
     border: 2px solid black;
+}
+
+
+.MAINTABLE td img{
+    width: 30px;
+    height: 30px;
 }
 
 /* MENSAJE ERROR */

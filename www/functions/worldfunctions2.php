@@ -45,191 +45,100 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
     $result3=$result3->fetch(PDO::FETCH_ASSOC);
     
     // Recursos
-    echo "<div class='window' id='resourcesCITY' style='display: none;'>
 
-        <div id='food'>
-            <p>";echo $lang['resources_1'];echo"</p>
-            <ul>
-            <p>COSTE:";echo $buildingCOST[$nextBuilding[0]][0].
-            " </p><p>".$buildingCOST[$nextBuilding[0]][1].
-            " </p><p>".$buildingCOST[$nextBuilding[0]][2].
-            " </p><p>".$buildingCOST[$nextBuilding[0]][3];
-            echo "</p></ul>
-            <img src='../assets/images/food.jpg' width='100px' height='100px'>";
+        echo "<div class='window' id='resourcesCITY' style='display: none;'>";
+    for($i=0;$i<4;$i++){
 
-            if ($result3["FOOD"] >= $buildingCOST[$nextBuilding[0]][0] &&
-                $result3["WOOD"] >= $buildingCOST[$nextBuilding[0]][1] &&
-                $result3["STONE"] >= $buildingCOST[$nextBuilding[0]][2] &&
-                $result3["IRON"] >= $buildingCOST[$nextBuilding[0]][3] ){
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[0]."`;'>Mejorar</button>";
+        if($i==0){$resource = "food";}
+        if($i==1){$resource = "wood";}
+        if($i==2){$resource = "stone";}
+        if($i==3){$resource = "iron";}
+
+
+        echo "<div id='".$resource."'>
+            <p>";echo $lang['resources_'.($i+1)];echo"</p>
+            <img src='../assets/images/".$resource.".jpg' width='50px' height='50px'>";
+
+            if(!empty($buildingCOST[$nextBuilding[$i]])){
+
+            echo "<ul>
+            <p>COSTE:";echo $buildingCOST[$nextBuilding[$i]][0].
+            " </p><p>".$buildingCOST[$nextBuilding[$i]][1].
+            " </p><p>".$buildingCOST[$nextBuilding[$i]][2].
+            " </p><p>".$buildingCOST[$nextBuilding[$i]][3];
+            echo "</p></ul>";
+
+            if ($result3["FOOD"] >= $buildingCOST[$nextBuilding[$i]][0] &&
+                $result3["WOOD"] >= $buildingCOST[$nextBuilding[$i]][1] &&
+                $result3["STONE"] >= $buildingCOST[$nextBuilding[$i]][2] &&
+                $result3["IRON"] >= $buildingCOST[$nextBuilding[$i]][3] ){
+                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[$i]."`;'>Mejorar</button>";
             } else {
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[0]."`;' disabled>Mejorar</button>";
+                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[$i]."`;' disabled>Mejorar</button>";
             }
-            echo "<p>NIVEL: ";echo $level[0];echo"</p>
-        </div>
-
-        <div id='wood'>
-            <p>";echo $lang['resources_2'];echo"</p>
-            <ul>
-            <p>COSTE:";echo $buildingCOST[$nextBuilding[1]][0].
-            " </p><p>".$buildingCOST[$nextBuilding[1]][1].
-            " </p><p>".$buildingCOST[$nextBuilding[1]][2].
-            " </p><p>".$buildingCOST[$nextBuilding[1]][3];
-            echo "</p></ul>
-            <img src='../assets/images/wood.jpg' width='100px' height='100px'>";
-
-            if ($result3["FOOD"] >= $buildingCOST[$nextBuilding[1]][0] &&
-                $result3["WOOD"] >= $buildingCOST[$nextBuilding[1]][1] &&
-                $result3["STONE"] >= $buildingCOST[$nextBuilding[1]][2] &&
-                $result3["IRON"] >= $buildingCOST[$nextBuilding[1]][3] ){
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[1]."`;'>Mejorar</button>";
-            } else {
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[1]."`;' disabled>Mejorar</button>";
-            }
-            echo "<p>NIVEL: ";echo $level[1];echo"</p>
-        </div>
-
-        <div id='stone'>
-            <p>";echo $lang['resources_3'];echo"</p>
-            <ul>
-            <p>COSTE:";echo $buildingCOST[$nextBuilding[2]][0].
-            " </p><p>".$buildingCOST[$nextBuilding[2]][1].
-            " </p><p>".$buildingCOST[$nextBuilding[2]][2].
-            " </p><p>".$buildingCOST[$nextBuilding[2]][3];
-            echo "</p></ul>
-            <img src='../assets/images/stone.jpg' width='100px' height='100px'>";
-
-            if ($result3["FOOD"] >= $buildingCOST[$nextBuilding[2]][0] &&
-                $result3["WOOD"] >= $buildingCOST[$nextBuilding[2]][1] &&
-                $result3["STONE"] >= $buildingCOST[$nextBuilding[2]][2] &&
-                $result3["IRON"] >= $buildingCOST[$nextBuilding[2]][3] ){
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[2]."`;'>Mejorar</button>";
-            } else {
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[2]."`;' disabled>Mejorar</button>";
-            }
-            echo "<p>NIVEL: ";echo $level[2];echo"</p>
-        </div>
-
-        <div id='iron'>
-            <p>";echo $lang['resources_4'];echo"</p>
-            <ul>
-            <p>COSTE:";echo $buildingCOST[$nextBuilding[3]][0].
-            " </p><p>".$buildingCOST[$nextBuilding[3]][1].
-            " </p><p>".$buildingCOST[$nextBuilding[3]][2].
-            " </p><p>".$buildingCOST[$nextBuilding[3]][3];
-            echo "</p></ul>
-            <img src='../assets/images/iron.jpg' width='100px' height='100px'>";
-
-            if ($result3["FOOD"] >= $buildingCOST[$nextBuilding[3]][0] &&
-                $result3["WOOD"] >= $buildingCOST[$nextBuilding[3]][1] &&
-                $result3["STONE"] >= $buildingCOST[$nextBuilding[3]][2] &&
-                $result3["IRON"] >= $buildingCOST[$nextBuilding[3]][3] ){
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[3]."`;'>Mejorar</button>";
-            } else {
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[3]."`;' disabled>Mejorar</button>";
-            }
-            echo "<p>NIVEL: ";echo $level[3];echo"</p>
-        </div>
-
-    </div>
-    ";
+            echo "<p>NIVEL: ";echo $level[$i];echo"</p>";
+        } else {
+            echo "<h4>".$lang['city_5']."</h4>";
+            echo "<p>".$lang['city_6'].": ";echo $level[$i];echo"</p>";
+        }
+        echo "</div>";
+    }
+    echo "</div>";
 
     // Ciudad
 
-    echo "<div class='window' id='cityCITY' style='display: none;'>
+    echo "<div class='window' id='cityCITY' style='display: none;'>";
+    for($i=4;$i<8;$i++){
 
-        <div id='townhall'>
-            <p>";echo $lang['city_1'];echo"</p>
-            <ul>
-            <p>COSTE:";echo $buildingCOST[$nextBuilding[4]][0].
-            " </p><p>".$buildingCOST[$nextBuilding[4]][1].
-            " </p><p>".$buildingCOST[$nextBuilding[4]][2].
-            " </p><p>".$buildingCOST[$nextBuilding[4]][3];
-            echo "</p></ul>
-            <img src='../assets/images/townhall.jpg' width='100px' height='100px'>";
+        if($i==4){$resource = "townhall";}
+        if($i==5){$resource = "storehouse";}
+        if($i==6){$resource = "barracks";}
+        if($i==7){$resource = "stable";}
 
-            if ($result3["FOOD"] >= $buildingCOST[$nextBuilding[4]][0] &&
-                $result3["WOOD"] >= $buildingCOST[$nextBuilding[4]][1] &&
-                $result3["STONE"] >= $buildingCOST[$nextBuilding[4]][2] &&
-                $result3["IRON"] >= $buildingCOST[$nextBuilding[4]][3] ){
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[4]."`;'>Mejorar</button>";
+
+        echo "<div id='".$resource."'>
+            <p>";echo $lang['city_'.($i+-3)];echo"</p>
+            <img src='../assets/images/".$resource.".jpg' width='50px' height='50px'>";
+
+            if(!empty($buildingCOST[$nextBuilding[$i]])){
+
+            echo "<p>NIVEL: ";echo $level[$i];echo"</p>";
+            echo "<ul>
+            <p>COSTE :";echo $buildingCOST[$nextBuilding[$i]][0].
+            " </p><p>".$buildingCOST[$nextBuilding[$i]][1].
+            " </p><p>".$buildingCOST[$nextBuilding[$i]][2].
+            " </p><p>".$buildingCOST[$nextBuilding[$i]][3];
+            echo "</p></ul>";
+
+            if ($result3["FOOD"] >= $buildingCOST[$nextBuilding[$i]][0] &&
+                $result3["WOOD"] >= $buildingCOST[$nextBuilding[$i]][1] &&
+                $result3["STONE"] >= $buildingCOST[$nextBuilding[$i]][2] &&
+                $result3["IRON"] >= $buildingCOST[$nextBuilding[$i]][3] ){
+                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[$i]."`;'>Mejorar</button>";
             } else {
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[4]."`;' disabled>Mejorar</button>";
+                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[$i]."`;' disabled>Mejorar</button>";
             }
-            echo "<p>NIVEL: ";echo $level[4];echo"</p>
-        </div>
-
-        <div id='storehouse'>
-            <p>";echo $lang['city_2'];echo"</p>
-            <ul>
-            <p>COSTE:";echo $buildingCOST[$nextBuilding[5]][0].
-            " </p><p>".$buildingCOST[$nextBuilding[5]][1].
-            " </p><p>".$buildingCOST[$nextBuilding[5]][2].
-            " </p><p>".$buildingCOST[$nextBuilding[5]][3];
-            echo "</p></ul>
-            <img src='../assets/images/storehouse.jpg' width='100px' height='100px'>";
-
-            if ($result3["FOOD"] >= $buildingCOST[$nextBuilding[5]][0] &&
-                $result3["WOOD"] >= $buildingCOST[$nextBuilding[5]][1] &&
-                $result3["STONE"] >= $buildingCOST[$nextBuilding[5]][2] &&
-                $result3["IRON"] >= $buildingCOST[$nextBuilding[5]][3] ){
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[5]."`;'>Mejorar</button>";
-            } else {
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[5]."`;' disabled>Mejorar</button>";
-            }
-            echo "<p>NIVEL: ";echo $level[5];echo"</p>
-        </div>
-
-        <div id='barracks'>
-            <p>";echo $lang['city_3'];echo"</p>
-            <ul>
-            <p>COSTE:";echo $buildingCOST[$nextBuilding[6]][0].
-            " </p><p>".$buildingCOST[$nextBuilding[6]][1].
-            " </p><p>".$buildingCOST[$nextBuilding[6]][2].
-            " </p><p>".$buildingCOST[$nextBuilding[6]][3];
-            echo "</p></ul>
-            <img src='../assets/images/barracks.jpg' width='100px' height='100px'>";
-
-            if ($result3["FOOD"] >= $buildingCOST[$nextBuilding[6]][0] &&
-                $result3["WOOD"] >= $buildingCOST[$nextBuilding[6]][1] &&
-                $result3["STONE"] >= $buildingCOST[$nextBuilding[6]][2] &&
-                $result3["IRON"] >= $buildingCOST[$nextBuilding[6]][3] ){
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[6]."`;'>Mejorar</button>";
-            } else {
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[6]."`;' disabled>Mejorar</button>";
-            }
-            echo "<p>NIVEL: ";echo $level[6];echo"</p>
-        </div>
-
-        <div id='stable'>
-            <p>";echo $lang['city_4'];echo"</p>
-            <ul>
-            <p>COSTE:";echo $buildingCOST[$nextBuilding[7]][0].
-            " </p><p>".$buildingCOST[$nextBuilding[7]][1].
-            " </p><p>".$buildingCOST[$nextBuilding[7]][2].
-            " </p><p>".$buildingCOST[$nextBuilding[7]][3];
-            echo "</p></ul>
-            <img src='../assets/images/stable.jpg' width='100px' height='100px'>";
-
-            if ($result3["FOOD"] >= $buildingCOST[$nextBuilding[7]][0] &&
-                $result3["WOOD"] >= $buildingCOST[$nextBuilding[7]][1] &&
-                $result3["STONE"] >= $buildingCOST[$nextBuilding[7]][2] &&
-                $result3["IRON"] >= $buildingCOST[$nextBuilding[7]][3] ){
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[7]."`;'>Mejorar</button>";
-            } else {
-                echo "<button id='resButton' onclick='window.location.href=`world.php?world=".$world."&building=".$nextBuilding[7]."`;' disabled>Mejorar</button>";
-            }
-            echo "<p>NIVEL: ";echo $level[7];echo"</p>
-        </div>
-
-    </div>
-    ";
+        } else {
+            echo "<h4>".$lang['city_5']."</h4>";
+            echo "<p>".$lang['city_6'].": ";echo $level[$i];echo"</p>";
+        }
+        echo "</div>";
+    }
+echo "</div>";
 
 
     // Cuartel Reclutamiento
 
-    echo "<div class='window' id='barrackCITY' style='display: none;'>
+    echo "<div class='window' id='barrackCITY' style='display: none;'>";
 
+    $sql = "SELECT * FROM TOWN_BUILDINGS WHERE TOWN_ID = '".$townid."';";
+    $milbuilding=$db->query($sql);
+    $milbuilding=$milbuilding->fetchALL(PDO::FETCH_ASSOC);
+    
+
+
+
+            echo "
         <div id='SWORDMAN'>
             <p>";echo $lang['barrack_1'];echo"</p>
             <ul>
@@ -244,17 +153,13 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
             echo "<input type='hidden' name='unit' value='SWORDMAN'>";
             
             echo "<input type='number' name='cuantity'>";
-            if ($result3["FOOD"] >= $armyCOST['SWORDMAN'][0] &&
-                $result3["WOOD"] >= $armyCOST['SWORDMAN'][1] &&
-                $result3["STONE"] >= $armyCOST['SWORDMAN'][2] &&
-                $result3["IRON"] >= $armyCOST['SWORDMAN'][3] ){
+            if ($milbuilding[6]['BUILDING'] == "barracks_1" ){
                 echo "<input type='submit' name='UNITPROD' value='MEJORAR'>";
             } else {
-                echo "<input type='submit name='UNITPROD' value='MEJORAR' disabled>";
+                echo "<p>".$lang['barrack_4']."</p>";
             }
              echo "</form>";
-            echo "<p>NIVEL: ";echo $level[4];echo"</p>
-        </div>
+            echo "</div>
 
         <div id='PIKEMAN'>
             <p>";echo $lang['barrack_2'];echo"</p>
@@ -270,17 +175,14 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
             echo "<input type='hidden' name='unit' value='PIKEMAN'>";
             
             echo "<input type='number' name='cuantity'>";
-            if ($result3["FOOD"] >= $armyCOST['PIKEMAN'][0] &&
-                $result3["WOOD"] >= $armyCOST['PIKEMAN'][1] &&
-                $result3["STONE"] >= $armyCOST['PIKEMAN'][2] &&
-                $result3["IRON"] >= $armyCOST['PIKEMAN'][3] ){
+
+            if ($milbuilding[6]['BUILDING'] == "barracks_1" ){
                 echo "<input type='submit' name='UNITPROD' value='MEJORAR'>";
             } else {
-                echo "<input type='submit name='UNITPROD' value='MEJORAR' disabled>";
+                echo "<p>".$lang['barrack_4']."</p>";
             }
              echo "</form>";
-            echo "<p>NIVEL: ";echo $level[5];echo"</p>
-        </div>
+            echo "</div>
 
         <div id='ARCHER'>
             <p>";echo $lang['barrack_3'];echo"</p>
@@ -296,17 +198,13 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
             echo "<input type='hidden' name='unit' value='ARCHER'>";
             
             echo "<input type='number' name='cuantity'>";
-            if ($result3["FOOD"] >= $armyCOST['ARCHER'][0] &&
-                $result3["WOOD"] >= $armyCOST['ARCHER'][1] &&
-                $result3["STONE"] >= $armyCOST['ARCHER'][2] &&
-                $result3["IRON"] >= $armyCOST['ARCHER'][3] ){
+            if ($milbuilding[6]['BUILDING'] == "barracks_1" ){
                 echo "<input type='submit' name='UNITPROD' value='MEJORAR'>";
             } else {
-                echo "<input type='submit name='UNITPROD' value='MEJORAR' disabled>";
+                echo "<p>".$lang['barrack_4']."</p>";
             }
              echo "</form>";
-            echo "<p>NIVEL: ";echo $level[6];echo"</p>
-        </div>
+            echo "</div>
 
     </div>
     ";
@@ -329,18 +227,14 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
             echo "<input type='hidden' name='unit' value='L_CAVALRY'>";
             
             echo "<input type='number' name='cuantity'>";
-            if ($result3["FOOD"] >= $armyCOST['L_CAVALRY'][0] &&
-                $result3["WOOD"] >= $armyCOST['L_CAVALRY'][1] &&
-                $result3["STONE"] >= $armyCOST['L_CAVALRY'][2] &&
-                $result3["IRON"] >= $armyCOST['L_CAVALRY'][3] ){
+            if ($milbuilding[7]['BUILDING'] == "stable_1" ){
                 echo "<input type='submit' name='UNITPROD' value='MEJORAR'>";
             } else {
-                echo "<input type='submit name='UNITPROD' value='MEJORAR' disabled>";
+                echo "<p>".$lang['stable_3']."</p>";
             }
             
             echo "</form>";
-            echo "<p>NIVEL: ";echo $level[4];echo"</p>
-        </div>
+            echo "</div>
 
         <div id='H-CAVALRY'>
             <p>";echo $lang['stable_2'];echo"</p>
@@ -356,17 +250,13 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
             echo "<input type='hidden' name='unit' value='H_CAVALRY'>";
             
             echo "<input type='number' name='cuantity'>";
-            if ($result3["FOOD"] >= $armyCOST['H_CAVALRY'][0] &&
-                $result3["WOOD"] >= $armyCOST['H_CAVALRY'][1] &&
-                $result3["STONE"] >= $armyCOST['H_CAVALRY'][2] &&
-                $result3["IRON"] >= $armyCOST['H_CAVALRY'][3] ){
+            if ($milbuilding[7]['BUILDING'] == "stable_1" ){
                 echo "<input type='submit' name='UNITPROD' value='MEJORAR'>";
             } else {
-                echo "<input type='submit name='UNITPROD' value='MEJORAR' disabled>";
+                echo "<p>".$lang['stable_3']."</p>";
             }
             echo "</form>";
-            echo "<p>NIVEL: ";echo $level[5];echo"</p>
-        </div>
+            echo "</div>
 
 
     </div>
@@ -375,25 +265,12 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
 
      echo "<div class='windowINFO' id='infoCITY' style='display: block;'>
 
-        <div id='construccion'>
-            <p>LISTA DE CONSTRUCCION</p>
-        </div>
-
-        <div id='reclutamiento'>
-            <p>LISTA DE Reclutamiento</p>
-        </div>
-
         <div id='army'>
-            ";
-            ARMYLIST($db,$world,$townid);
+            <h4>".$lang['info_1']."</h4>";
+            ARMYLIST($db,$world,$townid,$lang);
             echo"
         </div>
-        
-        <div id='viaje'>
-            <p>LISTA DE viaje/p>
-        </div>
-
-
+    
     </div>
     ";
 
@@ -411,6 +288,8 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
             <form method='post'>
                 <label>Enviar A:</label>
                 <input type='text' name='receiver'>
+                <label>Titulo:</label>
+                <input type='text' name='tittle' maxlength='30'>
                 <label>CONTENIDO:</label>
                 <input type='textarea' name='content' maxlength='1000'>
                 <input type='submit' name='sendMSG' value='ENVIAR'>
@@ -455,8 +334,7 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
     // Muestra batallas
     echo "<div class='windowBATTLE' id='battleCITY' style='display: none;'>";
 
-    echo "<p>".$lang['msg_1']."</p>
-    <button id='sendMSG'>".$lang['msg_2']."</button>
+    echo "<p>LISTA BATALLAS</p>
     
     <script>
 
@@ -478,7 +356,8 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
     <hr>";
 
 
-    //SHOWMSG($db,$world,$lang);
+    
+    SHOWBATTLE($db,$world,$lang);
 
 
     echo "</div>";
@@ -517,6 +396,8 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
         msgCITY.style.display='none';
         formMSG.style.display='none';
         battleCITY.style.display='none';
+        configuration.style.display='none';
+        changePassword.style.display='none';
     }) 
 
     city.addEventListener('click', () => {
@@ -529,6 +410,8 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
         mapCITY.style.display='none';
         msgCITY.style.display='none';
         formMSG.style.display='none';
+        configuration.style.display='none';
+        changePassword.style.display='none';
     }) 
 
     barrack.addEventListener('click', () => {
@@ -542,6 +425,8 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
         msgCITY.style.display='none';
         formMSG.style.display='none';
         battleCITY.style.display='none';
+        configuration.style.display='none';
+        changePassword.style.display='none';
     }) 
 
     stable.addEventListener('click', () => {
@@ -555,6 +440,8 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
         msgCITY.style.display='none';
         formMSG.style.display='none';
         battleCITY.style.display='none';
+        configuration.style.display='none';
+        changePassword.style.display='none';
     }) 
 
     info.addEventListener('click', () => {
@@ -568,6 +455,8 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
         msgCITY.style.display='none';
         formMSG.style.display='none';
         battleCITY.style.display='none';
+        configuration.style.display='none';
+        changePassword.style.display='none';
     }) 
     
     map.addEventListener('click', () => {
@@ -581,6 +470,8 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
         msgCITY.style.display='none';
         formMSG.style.display='none';
         battleCITY.style.display='none';
+        configuration.style.display='none';
+        changePassword.style.display='none';
     }) 
 
     msg.addEventListener('click', () => {
@@ -594,6 +485,8 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
         msgCITY.style.display='block';
         formMSG.style.display='none';
         battleCITY.style.display='none';
+        configuration.style.display='none';
+        changePassword.style.display='none';
     }) 
 
     battle.addEventListener('click', () => {
@@ -604,9 +497,11 @@ function LOADTOWN($db,$world,$lang,$buildingCOST,$armyCOST){
         stableCITY.style.display='none';
         infoCITY.style.display='none';
         mapCITY.style.display='none';
-        msgCITY.style.display='block';
+        msgCITY.style.display='none';
         formMSG.style.display='none';
-        battleCITY.style.display='none';
+        battleCITY.style.display='block';
+        configuration.style.display='none';
+        changePassword.style.display='none';
     }) 
     
     
@@ -636,15 +531,17 @@ function SENDMSG($db,$world,$lang){
     $result2=$result2->fetch(PDO::FETCH_ASSOC);
 
     $content = $_POST['content'];
+    $tittle = $_POST['tittle'];
+    
+    if (!isset($result2['PLAYER_ID'])) {
+        echo "<script>alert('".$lang['msg_4']." ".$to." ".$lang['msg_5']."!');</script>";
 
-    if($result2 && ($_SESSION['CONTENT'] != $content || !isset($_SESSION['CONTENT']))){
+    } else if($result2 && ($_SESSION['CONTENT'] != $content || !isset($_SESSION['CONTENT']))){
         
-        $sql = "INSERT INTO LETTER (SENDER_ID,RECEIVER_ID,CONTENT) VALUES (".$result['PLAYER_ID'].",".$result2['PLAYER_ID'].",'".$content."')";
+        $sql = "INSERT INTO LETTER (SENDER_ID,RECEIVER_ID,CONTENT,TITTLE) VALUES (".$result['PLAYER_ID'].",".$result2['PLAYER_ID'].",'".$content."','".$tittle."');";
         $db->query($sql);
         $_SESSION['CONTENT'] = $content;
 
-    } else if (!isset($result2['PLAYER_ID'])) {
-        echo "<script>alert('".$lang['msg_4']." ".$to." ".$lang['msg_5']."!";
     }
     
 
@@ -672,8 +569,9 @@ function SHOWMSG($db,$world,$lang){
             $result2=$result2->fetch(PDO::FETCH_ASSOC);
 
             echo "<div id='msg'>";
-            echo "<p>".$lang['msg_3'].$result2['PLAYER_NAME']."</p>";            
-            echo "<p>".$content['CONTENT']."</p>";
+            echo "<p> De: ".$lang['msg_3'].$result2['PLAYER_NAME']."</p>";            
+            echo "<p> Titulo: ".$content['TITTLE']."</p>";            
+            echo "<p> Contenido: ".$content['CONTENT']."</p>";
 
 
             echo "</div>";
@@ -693,33 +591,79 @@ function SHOWBATTLE($db,$world,$lang){
     $sql = "USE ".$world.";";
     $db->query($sql);
 
-    $sql = "SELECT * FROM LETTER JOIN PLAYERS ON LETTER.SENDER_ID = PLAYERS.PLAYER_ID WHERE PLAYERS.PLAYER_NAME = '".$user."' ORDER BY LETTER.LETTER_ID DESC;";
+    $sql = "SELECT PLAYER_ID FROM PLAYERS WHERE PLAYER_NAME = '".$user."';";
     $result=$db->query($sql);
-    $result=$result->fetchALL(PDO::FETCH_ASSOC);
+    $result=$result->fetch(PDO::FETCH_ASSOC);
 
-    if (!empty($result)){
+    $sql = "SELECT * FROM BATTLE_LOG WHERE ATT_ID = '".$result['PLAYER_ID']."' OR DEF_ID = '".$result['PLAYER_ID']."';";
+    $result2=$db->query($sql);
+    $result2=$result2->fetchALL(PDO::FETCH_ASSOC);
 
-        foreach($result as $content){
+    // Defino las tropas
+    $unitTypes = ['SWORDMAN', 'PIKEMAN', 'ARCHER', 'L_CAVALRY', 'H_CAVALRY'];
 
-            $sql = "SELECT PLAYER_NAME FROM PLAYERS WHERE PLAYER_ID = '".$content['SENDER_ID']."';";
-            $result2=$db->query($sql);
-            $result2=$result2->fetch(PDO::FETCH_ASSOC);
+    if (!empty($result2)) {
+    for ($i = 0; $i < count($result2); $i++) {
+        $log = $result2[$i];
 
-            echo "<div id='msg'>";
-            echo "<p>".$lang['msg_3'].$result2['PLAYER_NAME']."</p>";            
-            echo "<p>".$content['CONTENT']."</p>";
+        echo "<h3>Batalla #{$log['BATTLE_ID']}</h3>";
 
-
-            echo "</div>";
-            echo "<hr>";
+        // Tropas Atacantes
+        echo "<h4>Tropas Atacantes</h4>
+        <table border='1'><tr>";
+        echo "<th> </th>";
+        for ($n = 0; $n < count($unitTypes); $n++) {
+            echo "<th>{$unitTypes[$n]}</th>";
         }
+        echo "</tr><tr>";
+        
+        echo "<td>Tropas Atacantes</td>";
+        for ($n = 0; $n < count($unitTypes); $n++) {
+            echo "<td>{$log['A'.$unitTypes[$n]]}</td>";
+        }
+        echo "</tr>";
+        // Bajas Atacantes
+        echo "<tr>";
+        
+        echo "<td>Supervivientes</td>";
+        for ($n = 0; $n < count($unitTypes); $n++) {
+            echo "<td>{$log['A'.$unitTypes[$n].'_LOOSES']}</td>";
+        }
+        echo "</tr></table>";
 
-    } else {
-        echo "<p>".$lang['msg_6']."</p>";
+
+        // Tropas Defensoras
+        echo "<h4>Tropas Defensoras</h4>
+        <table border='1'><tr>";
+        
+        echo "<th> </th>";
+        for ($n = 0; $n < count($unitTypes); $n++) {
+            echo "<th>{$unitTypes[$n]}</th>";
+        }
+        echo "</tr><tr>";
+        
+        echo "<td>Tropas Defensoras</td>";
+        for ($n = 0; $n < count($unitTypes); $n++) {
+            echo "<td>{$log['D'.$unitTypes[$n]]}</td>";
+        }
+        echo "</tr>";
+        
+        echo "<tr>";
+        
+        echo "<td>Supervivientes</td>";
+        for ($n = 0; $n < count($unitTypes); $n++) {
+            echo "<td>{$log['D'.$unitTypes[$n].'_LOOSES']}</td>";
+        }
+        echo "</tr></table>";
+
+        echo "El atacante robó: MADERA: ".$log["WOOD"]." | COMIDA: ".$log["FOOD"]." | PIEDRA: ".$log["STONE"]." | HIERRO ".$log["WOOD"];
+
+        echo "<hr>";
     }
+}
 
 }
-function ARMYLIST($db,$world,$townid): void{
+function ARMYLIST($db,$world,$townid,$lang): void{
 
     $sql = "USE ".$world.";";
     $db->query($sql);
@@ -737,7 +681,9 @@ function ARMYLIST($db,$world,$townid): void{
                 echo $unit;
             }
         }
-    }   
+    } else {
+        echo "<p>".$lang['info_2']."</p>";
+    }
 }
 
 function SHOWMAP($db,$world){
@@ -771,6 +717,16 @@ function SHOWMAP($db,$world){
     $sql = "SELECT PLAYER_ID FROM PLAYERS WHERE PLAYER_NAME = '".$user."';";
     $result3=$db->query($sql);
     $result3=$result3->fetch(PDO::FETCH_ASSOC);
+
+    $sql = "SELECT SWORDMAN,PIKEMAN,ARCHER,L_CAVALRY,H_CAVALRY FROM ARMY WHERE PLAYER_ID = '".$result3['PLAYER_ID']."';";
+    $result4=$db->query($sql);
+    $result4=$result4->fetch(PDO::FETCH_ASSOC);
+
+    if(empty($result4['SWORDMAN'])){$SWORDMAN = 0;} else {$SWORDMAN = $result4['SWORDMAN'];}
+    if(empty($result4['PIKEMAN'])){$PIKEMAN = 0;} else {$PIKEMAN = $result4['PIKEMAN'];}
+    if(empty($result4['ARCHER'])){$ARCHER = 0;} else {$ARCHER = $result4['ARCHER'];}
+    if(empty($result4['L_CAVALRY'])){$L_CAVALRY = 0;} else {$L_CAVALRY = $result4['L_CAVALRY'];}
+    if(empty($result4['H_CAVALRY'])){$H_CAVALRY = 0;} else {$H_CAVALRY = $result4['L_CAVALRY'];}
 
 
     for($i=0;$i<$result['WORLD_SIZE'];$i++){
@@ -833,6 +789,7 @@ function SHOWMAP($db,$world){
                         swordman=document.createElement('input');
                         swordman.type='number';
                         swordman.name='swordman';
+                        swordman.max=".$SWORDMAN.";
                         swordman.value='0';
                         form.appendChild(swordman);
 
@@ -845,6 +802,7 @@ function SHOWMAP($db,$world){
                         pikeman=document.createElement('input');
                         pikeman.type='number';
                         pikeman.name='pikeman';
+                        pikeman.max=".$PIKEMAN.";
                         pikeman.value='0';
                         form.appendChild(pikeman);
 
@@ -857,6 +815,7 @@ function SHOWMAP($db,$world){
                         archer=document.createElement('input');
                         archer.type='number';
                         archer.name='archer';
+                        archer.max=".$ARCHER.";
                         archer.value='0';
                         form.appendChild(archer);
 
@@ -869,6 +828,7 @@ function SHOWMAP($db,$world){
                         l_cavalry=document.createElement('input');
                         l_cavalry.type='number';
                         l_cavalry.name='l_cavalry';
+                        l_cavalry.max=".$L_CAVALRY.";
                         l_cavalry.value='0';
                         form.appendChild(l_cavalry);
 
@@ -881,6 +841,7 @@ function SHOWMAP($db,$world){
                         h_cavalry=document.createElement('input');
                         h_cavalry.type='number';
                         h_cavalry.name='h_cavalry';
+                        h_cavalry.max=".$H_CAVALRY.";
                         h_cavalry.value='0';
                         form.appendChild(h_cavalry);
 

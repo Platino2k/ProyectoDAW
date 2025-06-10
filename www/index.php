@@ -1,5 +1,5 @@
 <?php
-    
+    error_reporting(0);
     session_start();
     include "config.php";
     include "functions/indexfunctions.php";
@@ -52,20 +52,20 @@
                             <input type="text" name="username" placeholder = "'; echo $lang["login_2"]; echo '" required><br>
                         
                             <img src="assets/icon/login_pass.png" width=20px heigth=20px>
-                            <input type="password" name="password" placeholder = "********"required><br>
-
-                            <img src="assets/icon/login_pass.png" width=20px heigth=20px>
-                            <input type="password" name="confirmpassword" placeholder = "********"required><br>
+                            <input type="password" name="password" placeholder = "********" required pattern="(?=.*[A-Z])(?=.*\d).+"
+                            title="'.$lang['register_4'].'"><br>
 
                             <img src="assets/icon/email.png" width=20px heigth=20px>
-                            <input type="text" name="email" placeholder = "E-Mail"required><br>
+                            <input type="text" name="email" placeholder = "E-Mail" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"><br>
 
                             <img src="assets/icon/birthday.png" width=20px heigth=20px>
                             <input type="date" name="birthdate" placeholder = "********"required><br>
                             
                             <button type="submit" class="formbutton" name="formdata" value="REGISTER">'; echo $lang["login_4"]; echo '</button>
                         </div>
-                    </form>';
+                    </form>
+                    
+                    ';
             ?>
         </div>
     </div>

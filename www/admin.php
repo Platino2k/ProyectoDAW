@@ -1,5 +1,5 @@
 <?php
-
+    error_reporting(0);
     session_start();
 
     include "config.php";
@@ -59,16 +59,80 @@ if(isset($check) && $check == true){
         
 
 
-        <div class="main">
+        <div class="main">';
 
-            <h1 id="main-text">Etravia</h1>
+
+        if(isset($_POST['filterList']) || isset($_GET['showList'])){
+
+            echo '<script>    
+
+                    panel = document.createElement("div");
+                    panel.id = "create-world";
+                    panel.style.display = "block";
+                    panel.style.backgroundColor = "white";
+                    panel.style.width = "70vw";
+                    panel.style.height = "90vh";
+                    panel.style.margin = "auto";
+                    panel.style.color = "black";
+                    panel.style.border = "5px solid #0097A7";
+                    panel.style.boxShadow = "2px 2px 3px #0097A7";
+                    
+                   
+                    document.getElementsByClassName("main")[0].appendChild(panel); 
+                
+
+                    panel.innerHTML = "";
+                    panel.innerHTML = `
+                    
+                    <div class="panelTop">
+                    <p>';echo $lang["worldlist_1"];echo '</p>
+                    <hr>
+                    </div>
+                    <div class="panelMain"> 
+                    ';
+
+                    // Filtrar
+                     echo "<p>Filtrar por Estado:</p>
+                    <form method='POST'>
+                        <select name='filter'>
+                            <option value='ALL'>ALL</option>
+                            <option value='RUNNING'>RUNNING</option>
+                            <option value='NOTRUNNING'>NOTRUNNING</option>
+                        </select>
+                        <input type='submit' name='filterList' value='FILTRAR'>
+                    </form>";
+                     echo "<table class='MAINTABLE' style='border-collapse: collapse;'>";
+                            echo "<tr>
+                                <td>";echo $lang['worldlist_3']; echo "</td>
+                                <td>";echo $lang['worldlist_4']; echo "</td>
+                                <td>";echo $lang['worldlist_5']; echo "</td>
+                            </tr>";
+                    $WORLDLIST = WORLDLIST($db);
+                    if (empty($WORLDLIST)){
+                        echo "<tr><td>";
+                        echo $lang["worldlist_2"];
+                        echo "</td></tr>";
+                    }
+                        echo "</table>";
+                
+                    echo '</div>
+                    `;
+
+
+            </script>';
+        } else {
+            echo '<h1 id="main-text">Etravia</h1>';
+        }
             
-        </div>
+        echo '</div>
 
         <script>
 
             worldlist=document.getElementsByClassName("world-list-button")[0];
+
             worldlist.addEventListener("click", () =>{
+                
+                configuration.style.display="none";
 
                 text=document.getElementById("main-text");
                 if(text){
@@ -98,8 +162,16 @@ if(isset($check) && $check == true){
                     <div class="panelMain"> 
                     ';
 
-
-                    // Creo Cabecera de la tabla
+                    // Filtrar
+                     echo "<p>Filtrar por Estado:</p>
+                    <form method='POST'>
+                        <select name='filter'>
+                            <option value='ALL'>ALL</option>
+                            <option value='RUNNING'>RUNNING</option>
+                            <option value='NOTRUNNING'>NOTRUNNING</option>
+                        </select>
+                        <input type='submit' name='filterList' value='FILTRAR'>
+                    </form>";
                      echo "<table class='MAINTABLE' style='border-collapse: collapse;'>";
                             echo "<tr>
                                 <td>";echo $lang['worldlist_3']; echo "</td>
@@ -122,6 +194,7 @@ if(isset($check) && $check == true){
 
             playerlist=document.getElementsByClassName("player-list-button")[0];
             playerlist.addEventListener("click", () =>{
+                configuration.style.display="none";
 
                 text=document.getElementById("main-text");
                 if(text){
@@ -160,6 +233,7 @@ if(isset($check) && $check == true){
                                 <td>";echo $lang['playerlist_5']; echo "</td>
                                 <td>";echo $lang['playerlist_6']; echo "</td>
                                 <td>";echo $lang['playerlist_7']; echo "</td>
+                                <td>BAN</td>
                             </tr>";
                     $WORLDLIST = PLAYERLIST($db);
                     if (empty($WORLDLIST)){
@@ -181,6 +255,7 @@ if(isset($check) && $check == true){
             createworld=document.getElementsByClassName("create-world-button")[0];
             createworld.addEventListener("click", () =>{
 
+                configuration.style.display="none";
                 text=document.getElementById("main-text");
                 if(text){
                     text.remove();
@@ -254,9 +329,9 @@ if(isset($check) && $check == true){
 
                 <form method="post" action="admin.php">
                     <p>';echo $lang["config_2"];echo '</p>
-                    <input type="text" name="oldPass">
+                    <input type="password" name="oldPass">
                     <p>';echo $lang["config_3"];echo '</p>
-                    <input type="text" name="newPass"><br>
+                    <input type="password" name="newPass"><br>
                     <input type="submit" name="changePass" value="';echo $lang["config_4"];echo '">
 
                 </form>
