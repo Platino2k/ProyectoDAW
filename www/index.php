@@ -35,7 +35,7 @@
                             <input type="text" name="username" placeholder = "'; echo $lang["login_2"]; echo '" required><br>
                         
                             <img src="assets/icon/login_pass.png" width=20px heigth=20px>
-                            <input type="password" name="password" placeholder = "********"required><br>
+                            <input type="password" name="password" placeholder = "********" minlength="6" required><br>
                         
                             <button type="submit" class="formbutton" name="formdata" value="LOGIN">'; echo $lang["login_4"]; echo '</button>
                         </div>
@@ -53,7 +53,7 @@
                         
                             <img src="assets/icon/login_pass.png" width=20px heigth=20px>
                             <input type="password" name="password" placeholder = "********" required pattern="(?=.*[A-Z])(?=.*\d).+"
-                            title="'.$lang['register_4'].'"><br>
+                            title="'.$lang['register_4'].'" minlength="6"><br>
 
                             <img src="assets/icon/email.png" width=20px heigth=20px>
                             <input type="text" name="email" placeholder = "E-Mail" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"><br>
@@ -68,10 +68,6 @@
                     ';
             ?>
         </div>
-    </div>
-
-    <div class="news">
-        
     </div>
 
     <footer>

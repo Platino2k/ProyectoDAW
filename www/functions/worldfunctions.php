@@ -31,7 +31,7 @@ if ($check == true){
         BATTLE($db,$WORLD,$lang,$armyPOWER);
     }
     if(!empty($_POST['UNITPROD'])){
-        UNITPROD($db,$WORLD,$armyCOST);
+        UNITPROD($db,$WORLD,$armyCOST,$lang);
     }
 
     if(!empty($_GET['building'])){
@@ -50,6 +50,7 @@ function CHANGETOWNNAME($db,$world){
 
     $townID = $_POST['town_id'];
     $newName = $_POST['town_name'];
+
 
     $sql = "UPDATE TOWN SET TOWN_NAME = '".$newName."' WHERE TOWN_ID = ".$townID.";";
     $db->query($sql);
@@ -372,18 +373,7 @@ function BATTLE($db,$world,$lang,$armyPOWER){
         if ($result4[5]["BUILDING"] == "storehouse_2"){$MAX=1000;}
         else if ($result4[5]["BUILDING"] == "storehouse_3"){$MAX=1500;}
 
-        if (($result5['WOOD']+$wood) > $MAX){$wood=$MAX;} else {$wood=$result5['WOOD']+$wood;}
-        if (($result5['FOOD']+$food) > $MAX){$food=$MAX;} else {$food=$result5['FOOD']+$food;}
-        if (($result5['STONE']+$stone) > $MAX){$stone=$MAX;} else {$stone=$result5['STONE']+$stone;}
-        if (($result5['IRON']+$iron) > $MAX){$iron=$MAX;} else {$iron=$result5['IRON']+$iron;}
-
-        $sql = "UPDATE TOWN SET
-        WOOD = '".$wood."',
-        FOOD = '".$food."',
-        STONE = '".$stone."',
-        IRON = '".$iron."'
-        WHERE TOWN_ID = '".$townid."';";
-        $db->query($sql);
+        
 
         $sql = "INSERT INTO BATTLE_LOG (
         ATT_ID, DEF_ID,
@@ -400,6 +390,19 @@ function BATTLE($db,$world,$lang,$armyPOWER){
         '".$quantities2['SWORDMAN']."', '".$quantities2['PIKEMAN']."', '".$quantities2['ARCHER']."', '".$quantities2['L_CAVALRY']."', '".$quantities2['H_CAVALRY']."',
         ".$wood.",".$food.",".$stone.",".$iron."
         );";
+        $db->query($sql);
+
+        if (($result5['WOOD']+$wood) > $MAX){$wood=$MAX;} else {$wood=$result5['WOOD']+$wood;}
+        if (($result5['FOOD']+$food) > $MAX){$food=$MAX;} else {$food=$result5['FOOD']+$food;}
+        if (($result5['STONE']+$stone) > $MAX){$stone=$MAX;} else {$stone=$result5['STONE']+$stone;}
+        if (($result5['IRON']+$iron) > $MAX){$iron=$MAX;} else {$iron=$result5['IRON']+$iron;}
+
+        $sql = "UPDATE TOWN SET
+        WOOD = '".$wood."',
+        FOOD = '".$food."',
+        STONE = '".$stone."',
+        IRON = '".$iron."'
+        WHERE TOWN_ID = '".$townid."';";
         $db->query($sql);
 
     } else {
@@ -495,7 +498,7 @@ function TOWNBUILDING($db,$world,$playerid,$userid){
 
 }
 
-function showResources($db,$world){
+function showResources($db,$world,$building){
 
     // Muestra recursos en world.php
 
@@ -508,6 +511,20 @@ function showResources($db,$world){
     $result=$result->fetch(PDO::FETCH_ASSOC);
     $townid = $result['TOWN_ID'];
 
+
+    $sql = "SELECT BUILDING 
+            FROM TOWN_BUILDINGS 
+            JOIN TOWN ON TOWN_BUILDINGS.TOWN_ID = TOWN.TOWN_ID 
+            JOIN PLAYERS ON TOWN.PLAYER_ID = PLAYERS.PLAYER_ID 
+            WHERE PLAYERS.PLAYER_NAME = '".$_SESSION['USER']."';";
+
+    $result3 = $db->query($sql);
+    $result3 = $result3->fetchAll(PDO::FETCH_ASSOC);
+
+    for($i=0;$i<4;$i++){
+        $PROD[$i] = $building[$result3[$i]['BUILDING']][1];
+    }
+
     $sql = "SELECT FOOD, WOOD, STONE, IRON FROM TOWN WHERE TOWN_ID = '".$townid."'";
     $result2=$db->query($sql);
     $result2=$result2->fetch(PDO::FETCH_ASSOC);
@@ -515,19 +532,19 @@ function showResources($db,$world){
     echo "<ul>
             <li>
                 <img src='../assets/icon/world/wood_icon.png'>
-                <p>";echo $result2['WOOD'];echo"</p>
+                <p>".$result2['WOOD']." - ".$PROD[0]."/H</p>
             </li>
             <li>
                 <img src='../assets/icon/world/food_icon.png'>
-                <p>";echo $result2['FOOD'];echo"</p>
+                <p>".$result2['FOOD']." - ".$PROD[1]."/H</p>
             </li>
             <li>
                 <img src='../assets/icon/world/stone_icon.png'>
-                <p>";echo $result2['STONE'];echo"</p>
+                <p>".$result2['STONE']." - ".$PROD[2]."/H</p>
             </li>
             <li>
                 <img src='../assets/icon/world/iron_icon.png'>
-                <p>";echo $result2['IRON'];echo"</p>
+                <p>".$result2['IRON']." - ".$PROD[3]."/H</p>
             </li>
         </ul>";
         
@@ -708,7 +725,7 @@ function LOADRESOURCES($db,$world,$building){
     }
 }
 
-function UNITPROD($db,$world,$armyCOST){
+function UNITPROD($db,$world,$armyCOST,$lang){
     
     $sql = "USE ".$world.";";
     $db->query($sql);
@@ -762,7 +779,7 @@ function UNITPROD($db,$world,$armyCOST){
                     $db->query($sql);
 
             } else {
-                echo "NO HAY RECURSOS!";
+                echo "<script>alert('".$lang['info_3']."')</script>";
             }
 
         }

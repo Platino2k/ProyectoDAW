@@ -19,6 +19,10 @@
         "error_1" => "The user does not exist",
         "error_2" => "Wrong password",
 
+        // Mensaje Ban
+
+        "ban_1" => "User Banned",
+
         // Panel Crear Mundo
 
         "createworld_1" => "Create World",
@@ -54,6 +58,11 @@
         "config_4" => "Change",
         
         "config_5" => "Change World",
+
+        // Filtros
+
+        "filter_1" => "Filter by status",
+        "filter_2" => "Filter",
 
         // Index.php
 
@@ -129,10 +138,30 @@
         "msg_5" => "does NOT exist!",
         "msg_6" => "No messages!",
 
+        "msg_7" => "Send Message",
+        "msg_8" => "Send To",
+        "msg_9" => "Tile",
+        "msg_10" => "Content",
+        "msg_11" => "Send",
+
         // Info
 
         "info_1" => "Army: ",
         "info_2" => "You dont have an army!",
+        "info_3" => "Not enough resources!",
+        "info_4" => "Level:",
+        "info_5" => "Build",
+        "info_6" => "Recruit",
+        "info_7" => "Atack",
+        
+        // Reporte Batallas
+
+        "battleinf_1" => "Battle List",
+        "battleinf_2" => "Attacking Troops",
+        "battleinf_3" => "Defending Troops",
+        "battleinf_4" => "Survivors",
+        "battleinf_5" => "Attacker stole: ",
+        "battleinf_6" => "Battle",
 
     );
 

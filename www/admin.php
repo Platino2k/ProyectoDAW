@@ -92,14 +92,14 @@ if(isset($check) && $check == true){
                     ';
 
                     // Filtrar
-                     echo "<p>Filtrar por Estado:</p>
+                     echo "<p>".$lang['filter_1'].":</p>
                     <form method='POST'>
                         <select name='filter'>
                             <option value='ALL'>ALL</option>
                             <option value='RUNNING'>RUNNING</option>
                             <option value='NOTRUNNING'>NOTRUNNING</option>
                         </select>
-                        <input type='submit' name='filterList' value='FILTRAR'>
+                        <input type='submit' name='filterList' value='".$lang['filter_2']."'>
                     </form>";
                      echo "<table class='MAINTABLE' style='border-collapse: collapse;'>";
                             echo "<tr>
@@ -120,6 +120,58 @@ if(isset($check) && $check == true){
 
 
             </script>';
+        } else if(isset($_GET['showPlayers'])){
+
+                echo '<script>    
+
+                    panel = document.createElement("div");
+                    panel.id = "create-world";
+                    panel.style.display = "block";
+                    panel.style.backgroundColor = "white";
+                    panel.style.width = "70vw";
+                    panel.style.height = "90vh";
+                    panel.style.margin = "auto";
+                    panel.style.color = "black";
+                    panel.style.border = "5px solid #0097A7";
+                    panel.style.boxShadow = "2px 2px 3px #0097A7";
+                    
+                   
+                    document.getElementsByClassName("main")[0].appendChild(panel); 
+                
+
+                    panel.innerHTML = "";
+                    panel.innerHTML = `
+                    
+                    <div class="panelTop">
+                    <p>';echo $lang["playerlist_1"];echo '</p>
+                    <hr>
+                    </div>
+                    <div class="panelMain"> 
+                    ';
+
+                     // Creo Cabecera de la tabla
+                     echo "<table class='MAINTABLE' style='border-collapse: collapse;'>";
+                            echo "<tr>
+                                <td>";echo $lang['playerlist_3']; echo "</td>
+                                <td>";echo $lang['playerlist_4']; echo "</td>
+                                <td>";echo $lang['playerlist_5']; echo "</td>
+                                <td>";echo $lang['playerlist_6']; echo "</td>
+                                <td>";echo $lang['playerlist_7']; echo "</td>
+                                <td>BAN</td>
+                            </tr>";
+                    $WORLDLIST = PLAYERLIST($db);
+                    if (empty($WORLDLIST)){
+                        echo "<tr><td>";
+                        echo $lang["worldlist_2"];
+                        echo "</td></tr>";
+                    }
+                        echo "</table>
+                    `;
+
+
+            </script>";
+                    
+
         } else {
             echo '<h1 id="main-text">Etravia</h1>';
         }
@@ -133,6 +185,7 @@ if(isset($check) && $check == true){
             worldlist.addEventListener("click", () =>{
                 
                 configuration.style.display="none";
+                changePassword.style.display = "none";
 
                 text=document.getElementById("main-text");
                 if(text){
@@ -163,14 +216,14 @@ if(isset($check) && $check == true){
                     ';
 
                     // Filtrar
-                     echo "<p>Filtrar por Estado:</p>
+                     echo "<p>".$lang['filter_1'].":</p>
                     <form method='POST'>
                         <select name='filter'>
                             <option value='ALL'>ALL</option>
                             <option value='RUNNING'>RUNNING</option>
                             <option value='NOTRUNNING'>NOTRUNNING</option>
                         </select>
-                        <input type='submit' name='filterList' value='FILTRAR'>
+                        <input type='submit' name='filterList' value='".$lang['filter_2']."'>
                     </form>";
                      echo "<table class='MAINTABLE' style='border-collapse: collapse;'>";
                             echo "<tr>
@@ -195,6 +248,7 @@ if(isset($check) && $check == true){
             playerlist=document.getElementsByClassName("player-list-button")[0];
             playerlist.addEventListener("click", () =>{
                 configuration.style.display="none";
+                changePassword.style.display = "none";
 
                 text=document.getElementById("main-text");
                 if(text){
@@ -256,6 +310,7 @@ if(isset($check) && $check == true){
             createworld.addEventListener("click", () =>{
 
                 configuration.style.display="none";
+                changePassword.style.display = "none";
                 text=document.getElementById("main-text");
                 if(text){
                     text.remove();
@@ -308,7 +363,7 @@ if(isset($check) && $check == true){
 
         
         <div id="configuration" style="display: none;">
-
+                <button id="close">X</button>
                 <button id="changePass">';echo $lang['config_1'];echo '</button>
 
                 <div class="lang_selector">
@@ -343,10 +398,13 @@ if(isset($check) && $check == true){
             configuration=document.getElementById("configuration");
             changePass=document.getElementById("changePass");
             changePassword=document.getElementById("changePassword");
+            
+            close=document.getElementById("close");
 
             config.addEventListener("click", () =>{
             
                 configuration.style.display = "block";
+                changePassword.style.display = "none";
             
             })
 
@@ -357,6 +415,12 @@ if(isset($check) && $check == true){
             
             })
         
+            close.addEventListener("click", () =>{
+            
+                configuration.style.display = "none";
+                changePassword.style.display = "none";
+            
+            })
 
         </script>
 

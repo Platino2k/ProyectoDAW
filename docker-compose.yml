@@ -5,6 +5,7 @@ services:
 
   php:
     image: php:8.2-fpm
+    container_name: PHP
     volumes:
       - ./www:/var/www/html
     networks:
@@ -13,6 +14,7 @@ services:
 
   mariadb:
     build: ./mariadb
+    container_name: MARIADB
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_USER: user
@@ -28,6 +30,7 @@ services:
 
   nginx:
     image: nginx:stable-perl
+    container_name: NGINX
     ports:
       - "80:80"
     volumes:
@@ -40,6 +43,7 @@ services:
 volumes:
   db_data: 
     driver: local
+    name: Etravia
 
 networks:
   redproyecto:

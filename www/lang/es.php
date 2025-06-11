@@ -19,6 +19,10 @@
         "error_1" => "Usuario no existe",
         "error_2" => "Contraseña Erronea",
 
+        // Mensaje Ban
+
+        "ban_1" => "Usuario Baneado",
+
         // Panel Crear Mundo
 
         "createworld_1" => "Crear Mundo",
@@ -54,6 +58,11 @@
         "config_4" => "Cambiar",
 
         "config_5" => "Cambiar de mundo",
+
+        // Filtros
+
+        "filter_1" => "Filtrar por Estado",
+        "filter_2" => "Filtrar",
 
         // Index.php
 
@@ -129,10 +138,30 @@
         "msg_5" => "NO existe!",
         "msg_6" => "No tienes mensajes!",
 
+        "msg_7" => "Enviar Mensaje",
+        "msg_8" => "Enviar A",
+        "msg_9" => "Título",
+        "msg_10" => "Contenido",
+        "msg_11" => "Enviar",
+
         // Info
 
         "info_1" => "Ejercito: ",
         "info_2" => "No tienes ejercito!",
+        "info_3" => "Recursos Insuficientes!",
+        "info_4" => "Nivel:",
+        "info_5" => "Construir",
+        "info_6" => "Reclutar",
+        "info_7" => "Atacar",
+
+        // Reporte Batallas
+
+        "battleinf_1" => "Lista de Batallas",
+        "battleinf_2" => "Tropas Atacantes",
+        "battleinf_3" => "Tropas Defensoras",
+        "battleinf_4" => "Supervivientes",
+        "battleinf_5" => "El atacante robó: ",
+        "battleinf_6" => "Batalla",
  
     );
 

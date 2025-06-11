@@ -40,6 +40,12 @@ if ($check == true){
         CHANGEPASS($db);
     }
 
+    if(isset($_GET['userBAN'])){
+        BANUSER($db);
+        header("Location: admin.php?showPlayers=true");
+        exit;
+    }
+
     if(isset($_GET['changeStatus'])){
         CHANGESTATUS($db,$lang);
     }
@@ -48,7 +54,28 @@ if ($check == true){
 
 }
 
+function BANUSER($db){
+    
+    $sql = "USE USERS_DB;";
+    $db->query($sql);
 
+    $user = $_GET['userBAN'];
+
+    $sql = "SELECT BANNED FROM USERS WHERE USER_NAME = '".$user."';";
+    $result=$db->query($sql);
+    $result=$result->fetch(PDO::FETCH_ASSOC);
+
+    if ($result["BANNED"] == 0){
+        $sql = "UPDATE USERS SET BANNED = 1 WHERE USER_NAME = '".$user."';";
+        $db->query($sql);
+    } else {
+        $sql = "UPDATE USERS SET BANNED = 0 WHERE USER_NAME = '".$user."';";
+        $db->query($sql);
+    }
+
+
+
+}
 
 function CHANGESTATUS($db,$lang){
     $sql = "USE USERS_DB;";
@@ -406,9 +433,10 @@ function PLAYERLIST($db){
             <td>$DATA[BIRTH_DATE]</td>
             <td>$DATA[MODERATOR]</td>
             <td>$DATA[BANNED]</td>
-            <td style='width:50px;border:none'><a><img id='".$DATA['USER_NAME']."' src='../assets/icon/ban.png' width='30' height='30'></a></td>
+            <td style='width:50px;border:none'><a href='admin.php?userBAN=".$DATA['USER_NAME']."'><img id='".$DATA['USER_NAME']."' src='../assets/icon/ban.png' width='30' height='30'></a></td>
             </tr>";
 
+    
     
     }
     return true;

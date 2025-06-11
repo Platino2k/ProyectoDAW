@@ -297,6 +297,24 @@ body{
     width: 20vh;
     left: 50vw;
     top: 30vh;
+    z-index: 2;
+    border-radius: 10px;
+}
+
+#config:hover{
+    cursor: pointer;
+}
+
+#configuration #close{
+    position: relative;
+    left: 40px;
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+#configuration #close:hover{
+    background-color: gray;
 }
 
 #changePass{
@@ -321,9 +339,53 @@ body{
     background-color: #0097A7;
     text-align: center;
     justify-items: center;
-    height: 20vw;
-    width: 40vh;
+    height: 18vw;
+    width: 30vh;
     left: 45vw;
     top: 25vh;
     color:white;
+    font-weight: bold;
+    border-radius: 10px;
 }
+
+#configuration #closeConfig{
+    position: relative;
+    margin-top: 5px;
+    left: 50px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid black;
+
+}
+
+#configuration #closeConfig:hover{
+    background-color: grey;
+
+}
+
+#changePassword #closeConfig2{
+    position: relative;
+    margin-top: 5px;
+    left: 50px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid black;
+
+
+}
+
+#changePassword #closeConfig2:hover{
+    background-color: grey;
+
+}
+#changePassword input:hover{
+    background-color: grey;
+
+}
+
+#changePassword input{
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: white;
+}
+

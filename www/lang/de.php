@@ -19,6 +19,10 @@
         "error_1" => "Der Benutzer existiert nicht",
         "error_2" => "Falsches Passwort",
 
+        // Mensaje Ban
+
+        "ban_1" => "Benutzer gesperrt",
+
         // Panel Crear Mundo
         
         "createworld_1" => "Welt Erschaffen",
@@ -54,6 +58,11 @@
         "config_4" => "Ändern",
         
         "config_5" => "Welt Ändern",
+
+        // Filtros
+
+        "filter_1" => "Nach Status filtern", 
+        "filter_2" => "Filtern",
 
          // Index.php
 
@@ -130,10 +139,31 @@
         "msg_5" => "existiert NICHT!",
         "msg_6" => "Keine Nachrichten!",
         
+        "msg_7" => "Nachricht senden",
+        "msg_8" => "Senden an",
+        "msg_9" => "Titel",
+        "msg_10" => "Inhalt",
+        "msg_11" => "Senden",
+
         // Info
 
         "info_1" => "Armee: ",
         "info_2" => "Sie habe keine Armee!",
+        "info_3" => "Unzureichende Ressourcen!",
+        "info_4" => "Stufe:",
+        "info_5" => "Bauen",
+        "info_6" => "Rekrutieren",
+        "info_7" => "Angreifen",
+        
+        // Reporte Batallas
+
+        "battleinf_1" => "Kampfliste",
+        "battleinf_2" => "Angreifende Truppen",
+        "battleinf_3" => "Verteidigende Truppen",
+        "battleinf_4" => "Überlebende",
+        "battleinf_5" => "Angreifer gestohlen:",
+        "battleinf_6" => "Schlacht",
+
 
 
     );

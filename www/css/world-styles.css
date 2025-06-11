@@ -86,6 +86,7 @@ footer {
     display: flex;
     gap: 1vw;
     list-style-type: none;
+    text-align: center;
 }
 
 .main .mainBody ul li img{
@@ -93,16 +94,19 @@ footer {
     height: 25px;
 }
 
+.main .mainBody ul li p{
+    margin-top: 0;
+}
 /* FONDO */
 
 .main .mainBody .background img{
     width: 100%;
-    height: 59.5vh;
+    height: 62vh;
 }
 
 .window{
     border: 5px solid black;
-    background-color: lightgray;
+    background-color: rgba(128, 128, 128, 0.8);
     width: 40vw;
     height: 60vh;
     left: 38vw;
@@ -156,6 +160,10 @@ footer {
 
 /* NAVBAR IZQUERDA */
 
+.leftMenu{
+    height: 69.5vh;
+}
+
 .leftMenu ul{
     list-style-type: none;
 }
@@ -183,17 +191,64 @@ footer {
 
 /* RECURSOS MEJORA */
 
+.window div div #buildingIMG{
+    position: relative;
+    top:20px;
+    right: 30px;
+    
+}
+
+#resButton{
+    position: relative;
+    
+}
+
+#level{
+    position: relative;
+    bottom:50px;
+    
+}
+
+
 .window div ul{
     display: flex;
     gap: 1vw;
     list-style-type: none;
+    row-gap: 0px;
+    flex-direction: row;
+    padding-left: 2px;
+}
+
+.window div ul p{
+    display: flex;
+    flex-direction:row;
+    row-gap: 0px;
 }
 
 .window div ul li img{
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top:7px;
 }
 
+#barrackCITY div input{
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#barrackCITY div input:hover{
+    background-color: white;
+}
+
+#stableCITY div input{
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#stableCITY div input:hover{
+    background-color: white;
+}
 /* MAPA */
 
 .windowMAP{
@@ -235,6 +290,36 @@ footer {
     left: 5vw;
     top: 5vh;
     position: absolute;
+    z-index: 3;
+    
+}
+
+
+.windowMAP #atack button{
+    position: relative;
+    left: 10vw;
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: white;
+}
+.windowMAP #atack button:hover{
+    background-color: gray;
+}
+
+.windowMAP #atack form input{
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin-top: 10px;
+}
+
+.windowMAP #atack form input:hover{
+    background-color: white;
+    
+}
+
+.windowMAP #atack form img{
+    position: relative;
+    top: 10px;
     
 }
 
@@ -258,14 +343,54 @@ footer {
     background-color: lightgray;
     width: 40vw;
     height: 60vh;
-    left: 37vw;
-    top: 23vh;
+    left: 38vw;
+    top: 27vh;
     position: absolute;
     overflow: auto;
     display: flex;
     text-align: center;
     z-index: 1;
+    border-radius: 6px;
     }
+
+    #formMSG #closeMSG{
+    position: relative;
+    margin-top: 5px;
+    left: 15vw;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid black;
+    }
+
+    #formMSG #closeMSG:hover{
+    background-color: grey;
+    }
+
+    #formMSG form label{
+        font-weight: bold;
+        outline: none;
+}
+  #formMSG form input{
+        border-radius: 6px;
+        outline: none;
+}
+
+ #formMSG form #textarea{
+        margin-top: 5px;
+        border-radius: 6px;
+        width: 20vw;
+        height: 20vh;
+        margin-bottom: 10px;
+        
+        
+}
+
+ #formMSG form #submit:hover{
+    background-color: gray;
+        
+        
+}
+
 
 /* Informe Batalla */
 
@@ -314,7 +439,7 @@ footer {
 
 
 .lang_selector ul{
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(212, 212, 212, 0.5);
     border: 2px solid white;
     width: 100px;
     padding: 0px;
@@ -350,6 +475,8 @@ footer {
     width: 20vh;
     left: 50vw;
     top: 30vh;
+    z-index: 2;
+    border-radius: 10px;
 }
 
 #config:hover{
@@ -379,13 +506,55 @@ footer {
     background-color: #0097A7;
     text-align: center;
     justify-items: center;
-    height: 20vw;
-    width: 40vh;
+    height: 18vw;
+    width: 30vh;
     left: 45vw;
     top: 25vh;
     color:white;
+    font-weight: bold;
+    border-radius: 10px;
 }
 
+#configuration #closeConfig{
+    position: relative;
+    margin-top: 5px;
+    left: 50px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid black;
+
+}
+
+#configuration #closeConfig:hover{
+    background-color: grey;
+
+}
+
+#changePassword #closeConfig2{
+    position: relative;
+    margin-top: 5px;
+    left: 50px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid black;
+
+
+}
+
+#changePassword #closeConfig2:hover{
+    background-color: grey;
+
+}
+#changePassword input:hover{
+    background-color: grey;
+
+}
+
+#changePassword input{
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: white;
+}
 
 /* Editar Nombre */
 #townContainer{
@@ -395,11 +564,28 @@ footer {
 
 #townContainer img{
     position: relative;
-    top:10px;
+    top:15px;
     margin-right: 15px;
 }
 
 .window div p{
     padding: 0;
     margin: 0;
+}
+
+#inputTxt{
+    margin-top: 20px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.5);
+    outline: none;
+}
+
+#submitButton{
+    margin-left: 5px;
+    margin-top: 20px;
+    background-color: #ffc947; 
+    border-radius: 6px;
+    color: #4e342e; 
+    border: none;
+
 }

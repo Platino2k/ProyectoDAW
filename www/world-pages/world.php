@@ -1,5 +1,6 @@
 <?php
-
+    error_reporting(0);
+    
     session_start();
     
     include "../param/param.php";
@@ -26,20 +27,20 @@
     
                 <button id="closeConfig">X</button>
                 <button id="changePass">';echo $lang['config_1'];echo '</button>
+                <button id="changePass" onclick="window.location.href=`../main.php`">';echo $lang['config_5'];echo '</button>
 
                 <div class="lang_selector">
 
                     <ul>';echo $lang["language"];echo '
 
-                        <li><a href="main.php&lang=es"><img src="../assets/icon/es_flag.png" width=20px heigth=20px> Español</a></li>
-                        <li><a href="main.php&lang=en"><img src="../assets/icon/en_flag.png" width=20px heigth=20px> English</a></li>
-                        <li><a href="main.php&lang=de"><img src="../assets/icon/de_flag.png" width=20px heigth=20px> Deutsch</a></li>
+                        <li><a href="world.php?world='.$WORLD.'&lang=es"><img src="../assets/icon/es_flag.png" width=20px heigth=20px> Español</a></li>
+                        <li><a href="world.php?world='.$WORLD.'&lang=en"><img src="../assets/icon/en_flag.png" width=20px heigth=20px> English</a></li>
+                        <li><a href="world.php?world='.$WORLD.'&lang=de"><img src="../assets/icon/de_flag.png" width=20px heigth=20px> Deutsch</a></li>
 
                     </ul>
 
                 </div>
                 
-                <button id="changePass" onclick="window.location.href=`../main.php`">';echo $lang['config_5'];echo '</button>
 
                 
 
@@ -132,7 +133,7 @@
     
         <div class='mainBody'>
             <div class='Resources' style='display:flex'>";
-                $id=showResources($db,$WORLD);
+                $id=showResources($db,$WORLD,$building);
             
                 $sql = "SELECT * FROM TOWN JOIN PLAYERS ON TOWN.PLAYER_ID = PLAYERS.PLAYER_ID WHERE PLAYERS.PLAYER_NAME = '".$_SESSION['USER']."';";
                 $result = $db->query($sql);
@@ -142,41 +143,43 @@
         <h3 id='townName'>".$result["TOWN_NAME"]."</h3>
       </div>";
 
-echo "<script>
-    const editIcon = document.getElementById('townEdit');
-    const townName = document.getElementById('townName');
-    const container = document.getElementById('townContainer');
+        echo "<script>
+            const editIcon = document.getElementById('townEdit');
+            const townName = document.getElementById('townName');
+            const container = document.getElementById('townContainer');
 
-    editIcon.addEventListener('click', () => {
+            editIcon.addEventListener('click', () => {
 
-        // Crear formulario
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = 'world.php?world=".$WORLD."';
+                // Crear formulario
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'world.php?world=".$WORLD."';
 
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.name = 'town_name';
-        input.value = ".$result["TOWN_NAME"].";
-        input.required = true;
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.name = 'town_name';
+                input.id = 'inputTxt';
+                input.value = '".$result["TOWN_NAME"]."';
+                input.required = true;
 
-        const hiddenId = document.createElement('input');
-        hiddenId.type = 'hidden';
-        hiddenId.name = 'town_id';
-        hiddenId.value = ".$result["TOWN_ID"].";
+                const hiddenId = document.createElement('input');
+                hiddenId.type = 'hidden';
+                hiddenId.name = 'town_id';
+                hiddenId.value = '".$result["TOWN_ID"]."';
 
-        const submit = document.createElement('input');
-        submit.type = 'submit';
-        submit.id = 'changeName';
-        submit.value = 'Guardar';
+                const submit = document.createElement('input');
+                submit.type = 'submit';
+                submit.id = 'submitButton';
+                submit.name = 'changeName';
+                submit.value = 'Guardar';
 
-        form.appendChild(input);
-        form.appendChild(hiddenId);
-        form.appendChild(submit);
+                form.appendChild(input);
+                form.appendChild(hiddenId);
+                form.appendChild(submit);
 
-        container.replaceChild(form, townName);
-    });
-</script>";
+                container.replaceChild(form, townName);
+            });
+        </script>";
 
 
             echo "</div>";
