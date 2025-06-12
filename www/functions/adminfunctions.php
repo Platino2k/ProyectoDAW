@@ -374,12 +374,32 @@ function WORLDLIST($db){
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
-    if(isset($_POST['filter']) && $_POST['filter'] == 'ALL'){
-        $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS;";
-    } else if(isset($_POST['filter'])){
-        $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS WHERE WORLD_STATUS = '".$_POST['filter']."';";
+        if(isset($_POST['order'])){
+            $order = $_POST['order'];
+        } else {
+            $order = "ASC";
+        }
+
+
+    if($_POST['filterName']){
+        if(isset($_POST['filter']) && $_POST['filter'] == 'ALL'){
+            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS WHERE WORLD_NAME = '".$_POST['filterName']."' ORDER BY WORLD_ID ".$order.";";
+        } else if(isset($_POST['filter'])){
+            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS WHERE WORLD_STATUS = '".$_POST['filter']."' AND WORLD_NAME = '".$_POST['filterName']."' ORDER BY WORLD_ID ".$order.";"; 
+        } else {
+            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS;";
+        }
+
     } else {
-        $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS;";
+
+        if(isset($_POST['filter']) && $_POST['filter'] == 'ALL'){
+
+            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS ORDER BY WORLD_ID ".$order.";";
+        } else if(isset($_POST['filter'])){
+            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS WHERE WORLD_STATUS = '".$_POST['filter']."' ORDER BY WORLD_ID ".$order.";"; 
+        } else {
+            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS;";
+        }
     }
     $result=$db->query($sql);
     $WORLD = $result->fetchALL();
@@ -391,10 +411,10 @@ function WORLDLIST($db){
             <td>$DATA[WORLD_ID]</td>
             <td>$DATA[WORLD_STATUS]</td>
             <td style='border: none; text-align: left; padding-left: 10px; width: 20px;'>
-                <a href='admin.php?changeStatus=$DATA[WORLD_ID]&showList=true'><img src='assets/icon/serverStatus.webp' /></a>
+                <a href='admin.php?changeStatus=$DATA[WORLD_ID]&showList=true&filter1=1'><img src='assets/icon/serverStatus.webp' /></a>
             </td>
             <td style='border: none; text-align: left; padding-left: 10px; width: 20px;'>
-                <a href='admin.php?delWorld=$DATA[WORLD_ID]&showList=true'><img src='assets/icon/trashcan.png' /></a>
+                <a href='admin.php?delWorld=$DATA[WORLD_ID]&showList=true&filter1=1'><img src='assets/icon/trashcan.png' /></a>
             </td>
             </tr>";
     }
@@ -421,7 +441,39 @@ function PLAYERLIST($db){
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
-    $sql = "select * from USERS;";
+        if(isset($_POST['order'])){
+            $order = $_POST['order'];
+        } else {
+            $order = "ASC";
+        }
+
+
+    if($_POST['filterName']){
+
+        if ($_POST['filter'] == "MODERATOR") {
+        $sql = "select * from USERS WHERE USER_NAME = '".$_POST['filterName']."' AND MOD = '1' ORDER BY USER_ID ".$order.";";
+
+        } else if ($_POST['filter'] == "BANNED") {
+        $sql = "select * from USERS WHERE USER_NAME = '".$_POST['filterName']."' AND BANNED = '1' ORDER BY USER_ID ".$order.";";
+
+        } else {
+        $sql = "select * from USERS WHERE USER_NAME = '".$_POST['filterName']."' ORDER BY USER_ID ".$order.";";
+        }
+            
+    } else {
+
+        
+        if ($_POST['filter'] == "MODERATOR") {
+        $sql = "select * from USERS WHERE MODERATOR = '1' ORDER BY USER_ID ".$order.";";
+
+        } else if ($_POST['filter'] == "BANNED") {
+        $sql = "select * from USERS WHERE BANNED = '1' ORDER BY USER_ID ".$order.";";
+
+         } else {
+        $sql = "select * from USERS ORDER BY USER_ID ".$order.";;";
+         }
+
+    }
     $result=$db->query($sql);
     $WORLD = $result->fetchALL();
    
@@ -433,7 +485,7 @@ function PLAYERLIST($db){
             <td>$DATA[BIRTH_DATE]</td>
             <td>$DATA[MODERATOR]</td>
             <td>$DATA[BANNED]</td>
-            <td style='width:50px;border:none'><a href='admin.php?userBAN=".$DATA['USER_NAME']."'><img id='".$DATA['USER_NAME']."' src='../assets/icon/ban.png' width='30' height='30'></a></td>
+            <td style='width:50px;border:none'><a href='admin.php?filter2=ban&userBAN=".$DATA['USER_NAME']."'><img id='".$DATA['USER_NAME']."' src='../assets/icon/ban.png' width='30' height='30'></a></td>
             </tr>";
 
     

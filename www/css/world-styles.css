@@ -13,12 +13,22 @@ body{
 }
 
 footer {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    justify-content: center; 
+    align-items: center; 
+}
+
+
+footer a{
+    margin-left: 5px;
+    color: #fff;
+    text-decoration: none;
 }
 
 /* Centro */
@@ -589,3 +599,50 @@ footer {
     border: none;
 
 }
+
+/* Contact php */
+
+form#contact{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 12px;
+}
+
+form#contact textarea{
+    border-radius: 12px;
+    height: 40px;
+    width: 200px;
+}
+
+form#contact input{
+    border-radius: 12px;
+}
+
+form#contact input:hover{
+    background-color: lightgray;
+}
+
+form#contact textarea:hover{
+    background-color: lightgray;
+}
+
+
+
+a#menuButton {
+    margin-bottom: 10px;
+    text-decoration: none;
+    border: 2px solid black;
+    padding-inline: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: white;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+a#menuButton:hover {
+    background-color: lightgray;
+}
+

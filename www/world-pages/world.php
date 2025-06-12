@@ -197,6 +197,7 @@
 
 
 <?php
+
     include "../functions/worldfunctions2.php";
     include "world-bottom.php";
 ?>

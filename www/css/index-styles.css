@@ -19,15 +19,24 @@ body {
 }
 
 /* Footer */
+
 footer {
+    display: flex;
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     text-align: center;
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 10px;
-    font-size: 0.9rem;
+    justify-content: center; 
+    align-items: center; 
+}
+
+
+footer a{
+    margin-left: 5px;
+    color: #fff;
+    text-decoration: none;
 }
 
 /* Menu */

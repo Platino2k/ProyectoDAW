@@ -63,6 +63,7 @@
 
         "filter_1" => "Filter by status",
         "filter_2" => "Filter",
+        "filter_3" => "Filter by Name",
 
         // Index.php
 
@@ -163,6 +164,12 @@
         "battleinf_5" => "Attacker stole: ",
         "battleinf_6" => "Battle",
 
+        //Ticket
+
+        "ticket_1" => "Contact Us",
+        "ticket_2" => "Index",
+        "ticket_3" => "Message",
+        "ticket_4" => "Send",
     );
 
 ?>

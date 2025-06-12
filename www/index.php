@@ -71,7 +71,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Etravia</p>
+        <p>&copy; 2025 Etravia |</p><?php echo '<a href="world-pages/contact.php">'.$lang['ticket_1'].'</a>' ?>
     </footer>
     <script src="script/index-script.js"></script>
 </body>

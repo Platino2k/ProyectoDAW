@@ -63,6 +63,7 @@
 
         "filter_1" => "Filtrar por Estado",
         "filter_2" => "Filtrar",
+        "filter_3" => "Filtrar por Nombre",
 
         // Index.php
 
@@ -162,6 +163,13 @@
         "battleinf_4" => "Supervivientes",
         "battleinf_5" => "El atacante robó: ",
         "battleinf_6" => "Batalla",
+
+        //Ticket
+
+        "ticket_1" => "Contáctanos",
+        "ticket_2" => "Indice",
+        "ticket_3" => "Mensaje",
+        "ticket_4" => "Enviar",
  
     );
 

@@ -195,7 +195,14 @@ function BATTLE($db,$world,$lang,$armyPOWER){
     ];
 
     //Defensor
-    $objective = $_POST['objective'];
+    if (isset($_POST['objective'])){
+
+        $objective = $_POST['objective'];
+    } else {
+
+        $objective = $_GET['objective'];
+    }
+    echo "<script>console.log('".$objective."')</script>";
 
    // Ejercito 1
    $army1 = []; 
@@ -210,15 +217,20 @@ function BATTLE($db,$world,$lang,$armyPOWER){
     
     $quantities1PRE = $quantities1;
 
-    
 
     shuffle($army1);
 
+    echo "<script>console.log('aqui llega2')</script>";
+    echo "<script>console.log('".$objective."')</script>";
     // Ejercito 2
     $army2=[]; 
     $sql = "SELECT SWORDMAN,PIKEMAN,ARCHER,L_CAVALRY,H_CAVALRY FROM ARMY WHERE POSITION = '".$objective."';";
+    
+    echo "<script>console.log('".$sql."')</script>";
     $result=$db->query($sql);
     $result=$result->fetch(PDO::FETCH_ASSOC);
+
+    
 
     if(!empty($result)){
 
@@ -234,6 +246,7 @@ function BATTLE($db,$world,$lang,$armyPOWER){
     $quantities2PRE = $quantities2;
 
 
+    echo "<script>console.log('aqui llega2')</script>";
         
 
         foreach ($quantities2 as $unit => $count) {

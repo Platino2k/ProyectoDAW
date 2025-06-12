@@ -62,7 +62,7 @@ if(isset($check) && $check == true){
         <div class="main">';
 
 
-        if(isset($_POST['filterList']) || isset($_GET['showList'])){
+        if(!empty($_POST['filter1']) || !empty($_GET['filter1'])){
 
             echo '<script>    
 
@@ -92,15 +92,29 @@ if(isset($check) && $check == true){
                     ';
 
                     // Filtrar
-                     echo "<p>".$lang['filter_1'].":</p>
-                    <form method='POST'>
+
+                    //Por Estado
+                     echo "<form method='POST' id='filterForm'>
                         <select name='filter'>
                             <option value='ALL'>ALL</option>
                             <option value='RUNNING'>RUNNING</option>
                             <option value='NOTRUNNING'>NOTRUNNING</option>
-                        </select>
-                        <input type='submit' name='filterList' value='".$lang['filter_2']."'>
-                    </form>";
+                        </select>";
+                    // Ordenar desc/asc´
+                   echo "<select name='order'>
+                            <option value='ASC'>ASC</option>
+                            <option value='DESC'>DESC</option>
+                        </select>";
+                    
+                    //Por nombre
+                    echo "<input type='text' placeholder='".$lang['filter_3']."' name='filterName'>";
+
+                    
+                    echo "<input type='submit' name='filter1' value='".$lang['filter_2']."'>";
+                    echo "</form>";
+
+
+                    
                      echo "<table class='MAINTABLE' style='border-collapse: collapse;'>";
                             echo "<tr>
                                 <td>";echo $lang['worldlist_3']; echo "</td>
@@ -120,7 +134,7 @@ if(isset($check) && $check == true){
 
 
             </script>';
-        } else if(isset($_GET['showPlayers'])){
+        } else if(!empty($_POST['filter2']) || !empty($_GET['filter2'])){
 
                 echo '<script>    
 
@@ -148,6 +162,28 @@ if(isset($check) && $check == true){
                     </div>
                     <div class="panelMain"> 
                     ';
+                    // Filtrar
+
+                    //Por Mod o Ban
+                     echo "<form method='POST' id='filterForm'>
+                        <select name='filter'>
+                            <option value='ALL'>ALL</option>
+                            <option value='BANNED'>BANNED</option>
+                            <option value='MODERATOR'>MOD</option>
+                        </select>";
+                    // Ordenar desc/asc´
+                   echo "<select name='order'>
+                            <option value='ASC'>ASC</option>
+                            <option value='DESC'>DESC</option>
+                        </select>";
+                    
+                    //Por nombre
+                    echo "<input type='text' placeholder='".$lang['filter_3']."' name='showPlayers'>";
+
+                    
+                    echo "<input type='submit' name='filter2' value='".$lang['filter_2']."'>";
+                    echo "</form>";
+
 
                      // Creo Cabecera de la tabla
                      echo "<table class='MAINTABLE' style='border-collapse: collapse;'>";
@@ -216,15 +252,26 @@ if(isset($check) && $check == true){
                     ';
 
                     // Filtrar
-                     echo "<p>".$lang['filter_1'].":</p>
-                    <form method='POST'>
+
+                    //Por Estado
+                     echo "<form method='POST' id='filterForm'>
                         <select name='filter'>
                             <option value='ALL'>ALL</option>
                             <option value='RUNNING'>RUNNING</option>
                             <option value='NOTRUNNING'>NOTRUNNING</option>
-                        </select>
-                        <input type='submit' name='filterList' value='".$lang['filter_2']."'>
-                    </form>";
+                        </select>";
+                    // Ordenar desc/asc´
+                   echo "<select name='order'>
+                            <option value='ASC'>ASC</option>
+                            <option value='DESC'>DESC</option>
+                        </select>";
+                    
+                    //Por nombre
+                    echo "<input type='text' placeholder='".$lang['filter_3']."' name='filterName'>";
+
+                    
+                    echo "<input type='submit' name='filter1' value='".$lang['filter_2']."'>";
+                    echo "</form>";
                      echo "<table class='MAINTABLE' style='border-collapse: collapse;'>";
                             echo "<tr>
                                 <td>";echo $lang['worldlist_3']; echo "</td>
@@ -277,7 +324,27 @@ if(isset($check) && $check == true){
                     </div>
                     <div class="panelMain"> 
                     ';
+                    // Filtrar
 
+                    //Por Mod o Ban
+                     echo "<form method='POST' id='filterForm'>
+                        <select name='filter'>
+                            <option value='ALL'>ALL</option>
+                            <option value='BANNED'>BANNED</option>
+                            <option value='MODERATOR'>MOD</option>
+                        </select>";
+                    // Ordenar desc/asc´
+                   echo "<select name='order'>
+                            <option value='ASC'>ASC</option>
+                            <option value='DESC'>DESC</option>
+                        </select>";
+                    
+                    //Por nombre
+                    echo "<input type='text' placeholder='".$lang['filter_3']."' name='filterName'>";
+
+                    
+                    echo "<input type='submit' name='filter2' value='".$lang['filter_2']."'>";
+                    echo "</form>";
 
                     // Creo Cabecera de la tabla
                      echo "<table class='MAINTABLE' style='border-collapse: collapse;'>";

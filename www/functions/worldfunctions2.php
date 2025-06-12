@@ -802,6 +802,12 @@ function SHOWMAP($db,$world,$lang){
                         
                         world = document.createElement('input');
                         world.type = 'hidden';
+                        world.name = 'objective';
+                        world.value = '".$result2[$counter]['TOWN_ID']."';
+                        form.appendChild(world);
+
+                        world = document.createElement('input');
+                        world.type = 'hidden';
                         world.name = 'world';
                         world.value = '".$world."';
                         form.appendChild(world);
