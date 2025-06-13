@@ -50,6 +50,7 @@ footer a{
   padding: 10px;
 }
 
+
 .menu-top img {
   width: 24px;
   height: 24px;
@@ -210,3 +211,49 @@ footer a{
   gap: 3px;
 }
 
+/* responsive */
+
+@media (max-width:500px){
+
+  body {
+  margin: 0;
+  font-family: 'Verdana';
+  background-image: url('../assets/images/fondo1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 120vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+  .menu-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(210, 180, 140, 0.8);
+    width: 100vw;
+    height: 7vh;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 20px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    padding: 10px;
+  }
+
+  .pageList {
+    display: flex;
+    justify-content: center;
+    margin-top: 0vh;
+    text-align: center;
+  }
+
+  footer{
+    display: none;
+  }
+}

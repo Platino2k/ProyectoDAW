@@ -646,3 +646,389 @@ a#menuButton:hover {
     background-color: lightgray;
 }
 
+/* responsive */
+
+@media (max-width:1100px){
+
+    /* Centro */
+    .main{
+        width: 80vw;
+        height: 75vh;
+
+        display: flex;
+    }
+
+
+    .main .mainBody{
+        width: 90vw;
+        height: 68vh;
+        
+        border-top-right-radius: 12px;
+        background-color: 	rgba(255, 200, 150, 0.5);
+        
+
+
+    }
+
+    .leftMenu {
+        height: 66vh;
+    }
+
+    .window{
+    border: 5px solid black;
+    background-color: rgba(128, 128, 128, 0.8);
+    width: 40vw;
+    height: 40vh;
+    left: 38vw;
+    top: 27vh;
+    position: absolute;
+    display: flex;
+    text-align: center;
+    gap: 10;
+    flex-wrap: wrap;
+        
+    }
+
+
+    .window div{
+        margin: auto;
+        border: 5px solid black;
+        
+        width: 35%;
+        height: 15vh;
+        text-align: center;
+        
+    }
+
+    .window div input{
+        width: 10vw;
+        
+    }
+
+    .windowMAP{
+    border: 5px solid black;
+    background-color: lightgray;
+    width: 40vw;
+    height: 40vh;
+    left: 38vw;
+    top: 27vh;
+    position: absolute;
+    overflow: auto;
+    display: flex;
+    text-align: center;
+    }
+
+
+    .windowMSG{
+        border: 5px solid black;
+        background-color: lightgray;
+        width: 40vw;
+        height: 40vh;
+        left: 38vw;
+        top: 27vh;
+        position: absolute;
+        overflow: auto;
+        display: flex;
+        text-align: center;
+    }
+
+    .windowBATTLE{
+        border: 5px solid black;
+        background-color: lightgray;
+        width: 40vw;
+        height: 40vh;
+        left: 37vw;
+        top: 23vh;
+        position: absolute;
+        overflow: auto;
+        display: flex;
+        text-align: center;
+    }
+
+    .windowMAP #atack{
+        width: 30vw;
+        height: 30vh;
+        left: 5vw;
+        top: 5vh;
+        position: absolute;
+        z-index: 3;
+        
+    }
+    
+
+    #configuration{
+
+        height: 20vh;
+    }
+
+    #formMSG{
+        border: 5px solid black;
+        background-color: lightgray;
+        width: 40vw;
+        height: 40vh;
+        left: 38vw;
+        top: 27vh;
+        position: absolute;
+        overflow: auto;
+        display: flex;
+        text-align: center;
+        z-index: 1;
+        border-radius: 6px;
+    }
+
+    #configuration #changePass{
+        text-align: center;
+        margin-top: 40px;
+        margin-right: 30px;
+        background-color:#0097A7;
+        color:white;
+        border: 2px solid white;
+        margin-bottom: 0px;
+
+    }
+
+    #configuration #closeConfig{
+        margin-left: 80px;
+        margin-top: 20px;
+        background-color:#0097A7;
+        color:white;
+        border: 2px solid white;
+
+
+    }
+    #battleCITY{
+        border: 5px solid black;
+        background-color: lightgray;
+        width: 40vw;
+        height: 40vh;
+        left: 37vw;
+        top: 23vh;
+        position: absolute;
+        overflow: auto;
+        display: flex;
+        text-align: center;
+    }
+}
+
+
+
+@media (max-width:500px){
+
+    
+
+    /* Centro */
+    .main{
+        width: 80vw;
+        height: 75vh;
+
+        display: flex;
+    }
+
+
+    .main .mainBody{
+        width: 95vw;
+        height: 68vh;
+        
+        border-top-right-radius: 12px;
+        background-color: 	rgba(255, 200, 150, 0.5);
+        
+
+
+    }
+
+    .leftMenu {
+        width: 7vw;
+        height: 66vh;
+        
+        padding-left: 10px;
+        padding-right: 20px;
+    }
+
+    .leftMenu ul{
+        text-align: left; 
+        margin: 0;
+        margin-right: 20px;
+    }
+        
+    .leftMenu ul li{
+        text-align: left;
+        width: 4vw;
+        height: 1vh;
+        background-color: orange;
+        margin-bottom: 10px;
+        font-size: 8px;
+        
+    }
+
+    .window{
+    border: 5px solid black;
+    background-color: rgba(128, 128, 128, 0.8);
+        width: 70vw;
+        height: 50vh;
+    left: 25vw;
+    top: 27vh;
+    position: absolute;
+    display: flex;
+    text-align: center;
+    gap: 10;
+    flex-wrap: wrap;
+        
+    }
+
+
+    .window div{
+        margin: auto;
+        border: 5px solid black;
+        
+        width: 35%;
+        height: 18vh;
+        text-align: center;
+        
+    }
+
+    .window div input{
+        width: 10vw;
+        
+    }
+
+    .windowMAP{
+    border: 5px solid black;
+    background-color: lightgray;
+        width: 70vw;
+        height: 50vh;
+    left: 25vw;
+    top: 27vh;
+    position: absolute;
+    overflow: auto;
+    display: flex;
+    text-align: center;
+    }
+
+
+    .windowMSG{
+        border: 5px solid black;
+        background-color: lightgray;
+        width: 70vw;
+        height: 50vh;
+        left: 25vw;
+        top: 27vh;
+        position: absolute;
+        overflow: auto;
+        display: flex;
+        text-align: center;
+    }
+
+    .windowBATTLE{
+        border: 5px solid black;
+        background-color: lightgray;
+        width: 70vw;
+        height: 50vh;
+        left: 25vw;
+        top: 23vh;
+        position: absolute;
+        overflow: auto;
+        display: flex;
+        text-align: center;
+    }
+
+    .windowMAP #atack{
+        width: 70vw;
+        height: 60vh;
+        left: 5vw;
+        top: 5vh;
+        position: absolute;
+        z-index: 3;
+        
+    }
+    
+
+    #configuration{
+
+        height: 20vh;
+    }
+
+    #formMSG{
+        border: 5px solid black;
+        background-color: lightgray;
+        width: 70vw;
+        height: 60vh;
+        left: 38vw;
+        top: 27vh;
+        position: absolute;
+        overflow: auto;
+        display: flex;
+        text-align: center;
+        z-index: 1;
+        border-radius: 6px;
+    }
+
+    #configuration #changePass{
+        text-align: center;
+        margin-top: 40px;
+        margin-right: 30px;
+        background-color:#0097A7;
+        color:white;
+        border: 2px solid white;
+        margin-bottom: 0px;
+
+    }
+
+    #configuration #closeConfig{
+        margin-left: 80px;
+        margin-top: 20px;
+        background-color:#0097A7;
+        color:white;
+        border: 2px solid white;
+
+
+    }
+    #battleCITY{
+        border: 5px solid black;
+        background-color: lightgray;
+        width: 70vw;
+        height: 50vh;
+        left: 25vw;
+        top: 23vh;
+        position: absolute;
+        overflow: auto;
+        display: flex;
+        text-align: center;
+    }
+
+    
+    .main .mainBody .background img{
+        width: 100%;
+        height: 56vh;
+    }
+
+    
+    #inputTxt{
+        margin-top: 20px;
+        border-radius: 6px;
+        background-color: rgba(255, 255, 255, 0.5);
+        outline: none;
+        width: 50px;
+    }
+
+    .windowINFO{
+        left: 20vw;
+        border: 3px solid black;
+        background-color: rgba(255, 255, 255, 0.7);
+        width: 30vw;
+        height: 25vh;
+        left: 65vw;
+        top: 30vh;
+        position: absolute;
+        margin-top: 0;
+        margin: 2px 0;
+        font-size: 14px;
+        
+        
+    }
+
+    .windowINFO div{
+        
+        padding: 0;
+        
+    }
+}

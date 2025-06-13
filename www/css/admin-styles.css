@@ -390,3 +390,54 @@ body{
     border-radius: 6px;
     background-color: white;
 }
+
+/* responsive */
+
+@media (max-width: 500px){
+
+    .sidebar .button-list button{
+    
+    position: relative;
+    margin: auto;
+    margin-top: 3vh;
+    width: 18vw;
+    height: 8vh;
+
+    font-size: 10px;
+
+    
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #FFFFFF;
+
+    border: 3px solid black;
+    box-shadow: 2px 2px 3px black;
+}
+
+    #configuration{
+
+        height: 30vh;
+    }
+
+    #changePass{
+
+    margin-top: 40px;
+    background-color:#0097A7;
+    color:white;
+    border: 2px solid white;
+
+
+}
+
+   #configuration #close{
+    margin-left: 40px;
+    margin-top: 20px;
+    background-color:#0097A7;
+    color:white;
+    border: 2px solid white;
+
+
+}
+
+
+}

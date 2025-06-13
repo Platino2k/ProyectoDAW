@@ -10,66 +10,67 @@ if (isset($_POST['logout']) || isset($_GET['logout'])) {
     exit;
 }
 
- if(!empty($_POST['formdata'])){
+if (!empty($_POST['formdata'])) {
 
 
     //Iniciar Sesion
-    if ($_POST['formdata'] == "LOGIN"){        
-            LOGIN($db,$lang);
-            $check=CHECKUSER($db);
+    if ($_POST['formdata'] == "LOGIN") {
+        LOGIN($db, $lang);
+        $check = CHECKUSER($db);
     }
 
 } else {
     //Comprueba cada vez que cargas una pagina el usuario y contraseña por seguridad
-    $check=CHECKUSER($db);
+    $check = CHECKUSER($db);
 }
 
-if ($check == true){
+if ($check == true) {
 
-     if(isset($_GET['delWorld'])){
+    if (isset($_GET['delWorld'])) {
         delWorld($db);
         header("Location: admin.php?showList=true");
         exit;
     }
 
-    if(isset($_POST['createWorld_form'])){
+    if (isset($_POST['createWorld_form'])) {
         CREATEWORLD($db);
     }
 
-    if(isset($_POST['changePass'])){
+    if (isset($_POST['changePass'])) {
         CHANGEPASS($db);
     }
 
-    if(isset($_GET['userBAN'])){
+    if (isset($_GET['userBAN'])) {
         BANUSER($db);
         header("Location: admin.php?showPlayers=true");
         exit;
     }
 
-    if(isset($_GET['changeStatus'])){
-        CHANGESTATUS($db,$lang);
+    if (isset($_GET['changeStatus'])) {
+        CHANGESTATUS($db, $lang);
     }
 
-   
+
 
 }
 
-function BANUSER($db){
-    
+function BANUSER($db)
+{
+
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
     $user = $_GET['userBAN'];
 
-    $sql = "SELECT BANNED FROM USERS WHERE USER_NAME = '".$user."';";
-    $result=$db->query($sql);
-    $result=$result->fetch(PDO::FETCH_ASSOC);
+    $sql = "SELECT BANNED FROM USERS WHERE USER_NAME = '" . $user . "';";
+    $result = $db->query($sql);
+    $result = $result->fetch(PDO::FETCH_ASSOC);
 
-    if ($result["BANNED"] == 0){
-        $sql = "UPDATE USERS SET BANNED = 1 WHERE USER_NAME = '".$user."';";
+    if ($result["BANNED"] == 0) {
+        $sql = "UPDATE USERS SET BANNED = 1 WHERE USER_NAME = '" . $user . "';";
         $db->query($sql);
     } else {
-        $sql = "UPDATE USERS SET BANNED = 0 WHERE USER_NAME = '".$user."';";
+        $sql = "UPDATE USERS SET BANNED = 0 WHERE USER_NAME = '" . $user . "';";
         $db->query($sql);
     }
 
@@ -77,40 +78,42 @@ function BANUSER($db){
 
 }
 
-function CHANGESTATUS($db,$lang){
+function CHANGESTATUS($db, $lang)
+{
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
     $world = $_GET['changeStatus'];
 
-    $sql = "SELECT WORLD_STATUS FROM WORLDSTATUS WHERE WORLD_ID = '".$world."';";
-    $result=$db->query($sql);
-    $result=$result->fetch(PDO::FETCH_ASSOC);
+    $sql = "SELECT WORLD_STATUS FROM WORLDSTATUS WHERE WORLD_ID = '" . $world . "';";
+    $result = $db->query($sql);
+    $result = $result->fetch(PDO::FETCH_ASSOC);
 
     if ($result['WORLD_STATUS'] == 'RUNNING') {
-        $sql = "UPDATE WORLDSTATUS SET WORLD_STATUS = 'NOTRUNNING' WHERE WORLD_ID = '".$world."';";
+        $sql = "UPDATE WORLDSTATUS SET WORLD_STATUS = 'NOTRUNNING' WHERE WORLD_ID = '" . $world . "';";
         $db->query($sql);
     } else {
-        $sql = "UPDATE WORLDSTATUS SET WORLD_STATUS = 'RUNNING' WHERE WORLD_ID = '".$world."';";
+        $sql = "UPDATE WORLDSTATUS SET WORLD_STATUS = 'RUNNING' WHERE WORLD_ID = '" . $world . "';";
         $db->query($sql);
     }
 
 }
 
 
-function CHANGEPASS($db){
+function CHANGEPASS($db)
+{
 
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
     $newPass = $_POST['newPass'];
-    
+
     $oldPass = $_POST['oldPass'];
 
-    if($oldPass == $_SESSION['PASS']){
+    if ($oldPass == $_SESSION['PASS']) {
         $user = $_SESSION['USER'];
 
-        $sql = "UPDATE USERS SET USER_PASSWORD = '".$newPass."' WHERE USER_NAME = '".$user."';";
+        $sql = "UPDATE USERS SET USER_PASSWORD = '" . $newPass . "' WHERE USER_NAME = '" . $user . "';";
         $db->query($sql);
 
         $_SESSION['PASS'] = $newPass;
@@ -121,7 +124,8 @@ function CHANGEPASS($db){
     }
 }
 
-function DBCON(){
+function DBCON()
+{
 
     // Establece conexion con la base de datos
 
@@ -129,12 +133,13 @@ function DBCON(){
     $server = "mariadb";
     $password = "rootpassword";
 
-    $db = NEW PDO ("mysql:host=$server",$user,$password);
+    $db = new PDO("mysql:host=$server", $user, $password);
     return $db;
 
 }
 
-function LOGIN($db,$lang){
+function LOGIN($db, $lang)
+{
 
     $name = $_POST["username"];
     $pass = $_POST["password"];
@@ -142,21 +147,21 @@ function LOGIN($db,$lang){
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
-    $sql = "SELECT USER_NAME,USER_PASSWORD FROM USERS WHERE USER_NAME = '".$name."' AND USER_PASSWORD = '".$pass."' AND MODERATOR = 1;";
-    $result=$db->query($sql);
+    $sql = "SELECT USER_NAME,USER_PASSWORD FROM USERS WHERE USER_NAME = '" . $name . "' AND USER_PASSWORD = '" . $pass . "' AND MODERATOR = 1;";
+    $result = $db->query($sql);
 
-    $result=$result->fetch(PDO::FETCH_ASSOC);
+    $result = $result->fetch(PDO::FETCH_ASSOC);
 
     //Da mensaje de error por usuario inexistente o contraseña
-    if(empty($result)){
-        $sql = "SELECT USER_NAME,USER_PASSWORD FROM USERS WHERE USER_NAME = '".$name."' AND MODERATOR = 1;";
-        $result2=$db->query($sql);
-        $result2=$result2->fetch(PDO::FETCH_ASSOC);
+    if (empty($result)) {
+        $sql = "SELECT USER_NAME,USER_PASSWORD FROM USERS WHERE USER_NAME = '" . $name . "' AND MODERATOR = 1;";
+        $result2 = $db->query($sql);
+        $result2 = $result2->fetch(PDO::FETCH_ASSOC);
 
-        if(empty($result2)){
-            echo "<div class='error'>".$lang["error_1"]."</div>";
+        if (empty($result2)) {
+            echo "<div class='error'>" . $lang["error_1"] . "</div>";
         } else {
-            echo "<div class='error'>".$lang["error_2"]."</div>";
+            echo "<div class='error'>" . $lang["error_2"] . "</div>";
         }
 
     }
@@ -171,20 +176,21 @@ function LOGIN($db,$lang){
 
 }
 
-function CHECKUSER($db){
+function CHECKUSER($db)
+{
 
     // Esta funcion es para incrementar la seguridad
     // Comprueblo que lo que hay en las variables $SESSION USER y PASS sea correcto
-    if (!empty($_SESSION["USER"]) && !empty($_SESSION["PASS"])){
+    if (!empty($_SESSION["USER"]) && !empty($_SESSION["PASS"])) {
         $sql = "USE USERS_DB;";
         $db->query($sql);
 
-        $sql = "SELECT USER_NAME,USER_PASSWORD FROM USERS WHERE USER_NAME = '".$_SESSION["USER"]."' AND USER_PASSWORD = '".$_SESSION["PASS"]."';";
-        $result=$db->query($sql);
+        $sql = "SELECT USER_NAME,USER_PASSWORD FROM USERS WHERE USER_NAME = '" . $_SESSION["USER"] . "' AND USER_PASSWORD = '" . $_SESSION["PASS"] . "';";
+        $result = $db->query($sql);
 
-        $result=$result->fetch(PDO::FETCH_ASSOC);
+        $result = $result->fetch(PDO::FETCH_ASSOC);
 
-        if (!empty($result["USER_NAME"]) && $result["USER_NAME"] == $_SESSION["USER"] && $result["USER_PASSWORD"] == $_SESSION["PASS"]){
+        if (!empty($result["USER_NAME"]) && $result["USER_NAME"] == $_SESSION["USER"] && $result["USER_PASSWORD"] == $_SESSION["PASS"]) {
             return true;
         } else {
             return false;
@@ -197,7 +203,8 @@ function CHECKUSER($db){
 }
 
 
-function CREATEWORLD($db){
+function CREATEWORLD($db)
+{
 
     // Genera los mundos
     // En caso de no existir ningun mundo genera "mundo1"
@@ -217,17 +224,17 @@ function CREATEWORLD($db){
         $num++;
         $txt = "MUNDO";
         $txt .= $num;
-        $db->query("CREATE DATABASE `".$txt."`;");
+        $db->query("CREATE DATABASE `" . $txt . "`;");
 
-        
-    
+
+
     } else { // Genera el primer mundo
-        
+
         $txt = "MUNDO1";
-        $db->query("CREATE DATABASE `".$txt."`;");
+        $db->query("CREATE DATABASE `" . $txt . "`;");
     }
 
-    $db->query("USE ".$txt.";");
+    $db->query("USE " . $txt . ";");
 
     // Se crean las tablas de la Base de datos
     $db->query("
@@ -259,12 +266,6 @@ function CREATEWORLD($db){
         CREATE TABLE IF NOT EXISTS TOWN_BUILDINGS(
             TOWN_ID INT NOT NULL,
             BUILDING VARCHAR(50) NOT NULL,
-            FOREIGN KEY (TOWN_ID) REFERENCES TOWN(TOWN_ID)
-        );
-
-        CREATE TABLE IF NOT EXISTS PROD_LIST(
-            TOWN_ID INT NOT NULL,
-            PRODTIME DATETIME NOT NULL,
             FOREIGN KEY (TOWN_ID) REFERENCES TOWN(TOWN_ID)
         );
 
@@ -353,12 +354,12 @@ function CREATEWORLD($db){
     $db->query("INSERT INTO WORLDSTATUS VALUES ('$worldname', '$txt', 'RUNNING', '$mapsize', '$playerqty');");
 
     //CREO EL MAPA
-    $counter=0;
-    for($i=0;$i<$mapsize;$i++){
-        
-        for($n=0;$n<$mapsize;$n++){
-            $db->query("use ".$txt.";");
-            $db->query("INSERT INTO MAP (SQUARE_ID,POS_X,POS_Y) VALUES (".$counter.",".$i.",".$n.");");
+    $counter = 0;
+    for ($i = 0; $i < $mapsize; $i++) {
+
+        for ($n = 0; $n < $mapsize; $n++) {
+            $db->query("use " . $txt . ";");
+            $db->query("INSERT INTO MAP (SQUARE_ID,POS_X,POS_Y) VALUES (" . $counter . "," . $i . "," . $n . ");");
             $counter++;
         }
 
@@ -368,44 +369,45 @@ function CREATEWORLD($db){
     $db = null; // Cierro la conexion con la base de datos
 }
 
-function WORLDLIST($db){
+function WORLDLIST($db)
+{
 
     // Entro en USERS_DB
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
-        if(isset($_POST['order'])){
-            $order = $_POST['order'];
-        } else {
-            $order = "ASC";
-        }
+    if (isset($_POST['order'])) {
+        $order = $_POST['order'];
+    } else {
+        $order = "ASC";
+    }
 
 
-    if($_POST['filterName']){
-        if(isset($_POST['filter']) && $_POST['filter'] == 'ALL'){
-            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS WHERE WORLD_NAME = '".$_POST['filterName']."' ORDER BY WORLD_ID ".$order.";";
-        } else if(isset($_POST['filter'])){
-            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS WHERE WORLD_STATUS = '".$_POST['filter']."' AND WORLD_NAME = '".$_POST['filterName']."' ORDER BY WORLD_ID ".$order.";"; 
+    if ($_POST['filterName']) {
+        if (isset($_POST['filter']) && $_POST['filter'] == 'ALL') {
+            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS WHERE WORLD_NAME = '" . $_POST['filterName'] . "' ORDER BY WORLD_ID " . $order . ";";
+        } else if (isset($_POST['filter'])) {
+            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS WHERE WORLD_STATUS = '" . $_POST['filter'] . "' AND WORLD_NAME = '" . $_POST['filterName'] . "' ORDER BY WORLD_ID " . $order . ";";
         } else {
             $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS;";
         }
 
     } else {
 
-        if(isset($_POST['filter']) && $_POST['filter'] == 'ALL'){
+        if (isset($_POST['filter']) && $_POST['filter'] == 'ALL') {
 
-            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS ORDER BY WORLD_ID ".$order.";";
-        } else if(isset($_POST['filter'])){
-            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS WHERE WORLD_STATUS = '".$_POST['filter']."' ORDER BY WORLD_ID ".$order.";"; 
+            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS ORDER BY WORLD_ID " . $order . ";";
+        } else if (isset($_POST['filter'])) {
+            $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS WHERE WORLD_STATUS = '" . $_POST['filter'] . "' ORDER BY WORLD_ID " . $order . ";";
         } else {
             $sql = "select WORLD_NAME, WORLD_ID, WORLD_STATUS from WORLDSTATUS;";
         }
     }
-    $result=$db->query($sql);
+    $result = $db->query($sql);
     $WORLD = $result->fetchALL();
-   
-   
-    foreach ($WORLD as $DATA){
+
+
+    foreach ($WORLD as $DATA) {
         echo "<tr>
             <td>$DATA[WORLD_NAME]</td>
             <td>$DATA[WORLD_ID]</td>
@@ -421,63 +423,65 @@ function WORLDLIST($db){
     return true;
 }
 
-function delWorld($db){
+function delWorld($db)
+{
     // Borra el mundo seleccionado
 
-    $sql = "drop database ".$_GET['delWorld'].";";
+    $sql = "drop database " . $_GET['delWorld'] . ";";
     $db->query($sql);
 
     $sql = "use USERS_DB;";
     $db->query($sql);
 
-    $sql = "delete from WORLDSTATUS where WORLD_ID = '".$_GET['delWorld']."';";
+    $sql = "delete from WORLDSTATUS where WORLD_ID = '" . $_GET['delWorld'] . "';";
     $db->query($sql);
 
 }
 
-function PLAYERLIST($db){
+function PLAYERLIST($db)
+{
 
     // Entro en USERS_DB
     $sql = "USE USERS_DB;";
     $db->query($sql);
 
-        if(isset($_POST['order'])){
-            $order = $_POST['order'];
-        } else {
-            $order = "ASC";
-        }
+    if (isset($_POST['order'])) {
+        $order = $_POST['order'];
+    } else {
+        $order = "ASC";
+    }
 
 
-    if($_POST['filterName']){
+    if ($_POST['filterName']) {
 
         if ($_POST['filter'] == "MODERATOR") {
-        $sql = "select * from USERS WHERE USER_NAME = '".$_POST['filterName']."' AND MOD = '1' ORDER BY USER_ID ".$order.";";
+            $sql = "select * from USERS WHERE USER_NAME = '" . $_POST['filterName'] . "' AND MOD = '1' ORDER BY USER_ID " . $order . ";";
 
         } else if ($_POST['filter'] == "BANNED") {
-        $sql = "select * from USERS WHERE USER_NAME = '".$_POST['filterName']."' AND BANNED = '1' ORDER BY USER_ID ".$order.";";
+            $sql = "select * from USERS WHERE USER_NAME = '" . $_POST['filterName'] . "' AND BANNED = '1' ORDER BY USER_ID " . $order . ";";
 
         } else {
-        $sql = "select * from USERS WHERE USER_NAME = '".$_POST['filterName']."' ORDER BY USER_ID ".$order.";";
+            $sql = "select * from USERS WHERE USER_NAME = '" . $_POST['filterName'] . "' ORDER BY USER_ID " . $order . ";";
         }
-            
+
     } else {
 
-        
+
         if ($_POST['filter'] == "MODERATOR") {
-        $sql = "select * from USERS WHERE MODERATOR = '1' ORDER BY USER_ID ".$order.";";
+            $sql = "select * from USERS WHERE MODERATOR = '1' ORDER BY USER_ID " . $order . ";";
 
         } else if ($_POST['filter'] == "BANNED") {
-        $sql = "select * from USERS WHERE BANNED = '1' ORDER BY USER_ID ".$order.";";
+            $sql = "select * from USERS WHERE BANNED = '1' ORDER BY USER_ID " . $order . ";";
 
-         } else {
-        $sql = "select * from USERS ORDER BY USER_ID ".$order.";;";
-         }
+        } else {
+            $sql = "select * from USERS ORDER BY USER_ID " . $order . ";;";
+        }
 
     }
-    $result=$db->query($sql);
+    $result = $db->query($sql);
     $WORLD = $result->fetchALL();
-   
-    foreach ($WORLD as $DATA){
+
+    foreach ($WORLD as $DATA) {
         echo "<tr>
             <td>$DATA[USER_ID]</td>
             <td>$DATA[USER_NAME]</td>
@@ -485,11 +489,11 @@ function PLAYERLIST($db){
             <td>$DATA[BIRTH_DATE]</td>
             <td>$DATA[MODERATOR]</td>
             <td>$DATA[BANNED]</td>
-            <td style='width:50px;border:none'><a href='admin.php?filter2=ban&userBAN=".$DATA['USER_NAME']."'><img id='".$DATA['USER_NAME']."' src='../assets/icon/ban.png' width='30' height='30'></a></td>
+            <td style='width:50px;border:none'><a href='admin.php?filter2=ban&userBAN=" . $DATA['USER_NAME'] . "'><img id='" . $DATA['USER_NAME'] . "' src='../assets/icon/ban.png' width='30' height='30'></a></td>
             </tr>";
 
-    
-    
+
+
     }
     return true;
 }
